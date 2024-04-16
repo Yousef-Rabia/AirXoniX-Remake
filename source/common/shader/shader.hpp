@@ -79,7 +79,7 @@ namespace our {
         void set(const std::string &uniform, glm::mat4 matrix) {
             //TODO: (Req 1) Send the given matrix 4x4 value to the given uniform
             GLuint location = getUniformLocation(uniform);
-//            glUniformMatrix4fv(location, 1, false, glm::value_ptr(matrix));
+            glUniformMatrix4fv(location, 1, false, glm::value_ptr(matrix));
         }
 
         //TODO: (Req 1) Delete the copy constructor and assignment operator.

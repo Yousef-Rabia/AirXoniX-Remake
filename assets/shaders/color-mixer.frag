@@ -8,7 +8,7 @@ in Varyings {
 } fs_in;
 
 out vec4 frag_color;
-uniform vec4 red, green, blue;
+uniform vec4 red= vec4(1.0, 0.0,0.0,0.0), green=vec4(0.0, 1.0,0.0,0.0), blue=vec4(0.0, 0.0,1.0,0.0);
 // red(r,g,b,a), green(r,g,b,a), blue(r,g,b,a)
 // fs_in.color=(r,g,b,a)
 
