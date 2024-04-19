@@ -53,10 +53,19 @@ namespace our {
             glEnableVertexAttribArray(ATTRIB_LOC_POSITION);
 
             // Enable and specify color attribute
-            glVertexAttribPointer(ATTRIB_LOC_COLOR, 4, GL_UNSIGNED_BYTE, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+            glVertexAttribPointer(ATTRIB_LOC_COLOR, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, color));
             glEnableVertexAttribArray(ATTRIB_LOC_COLOR);
 
+            //Enable and specify tex coord
+            glEnableVertexAttribArray(ATTRIB_LOC_TEXCOORD);
+            glVertexAttribPointer(ATTRIB_LOC_TEXCOORD, 2, GL_FLOAT , GL_FALSE, sizeof(Vertex),  (void*)offsetof(Vertex, tex_coord));
+
+            //Enable and specify normal
+            glEnableVertexAttribArray(ATTRIB_LOC_NORMAL);
+            glVertexAttribPointer(ATTRIB_LOC_NORMAL, 3,  GL_FLOAT, GL_FALSE, sizeof(Vertex),  (void*)offsetof(Vertex, normal));
+
             glBindVertexArray(0);
+
         }
 
         // this function should render the mesh
