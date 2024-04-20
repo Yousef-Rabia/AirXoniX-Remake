@@ -47,7 +47,7 @@ namespace our {
         shader->set("alphaThreshold",alphaThreshold);
         if(texture != nullptr && sampler !=nullptr)
         {
-            glActiveTexture(GL_TEXTURE0); //we send it unit 0
+            glActiveTexture(GL_TEXTURE0);
             texture->bind();
             sampler->bind(0);
             shader->set("tex",0);
