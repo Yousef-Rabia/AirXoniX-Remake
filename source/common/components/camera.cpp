@@ -58,7 +58,7 @@ namespace our {
             case CameraType::PERSPECTIVE:
                 return glm::perspective(fovY, aspectRatio, near, far);
             default:
-                return glm::mat4(1.0f);     //To handle the corner case of selecting neither orthographic nor perspective
+                return glm::mat4(1.0f);
         }
     }
 }
