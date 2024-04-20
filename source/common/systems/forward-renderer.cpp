@@ -31,7 +31,7 @@ namespace our {
             // We choose GL_LESS as the depth testing function since even if the depth of another object drawn is set
             // to 1, the sky still shouldn't be drawn over it
             skyPipelineState.depthTesting.enabled = true;
-            skyPipelineState.depthTesting.function = GL_LESS;
+            skyPipelineState.depthTesting.function = GL_LEQUAL;
 
             // Load the sky texture (note that we don't need mipmaps since we want to avoid any unnecessary blurring while rendering the sky)
             std::string skyTextureFile = config.value<std::string>("sky", "");

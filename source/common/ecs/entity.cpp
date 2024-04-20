@@ -12,12 +12,12 @@ namespace our {
     // its parent's parent's matrix and so on till you reach the root.
     glm::mat4 Entity::getLocalToWorldMatrix() const {
         //TODO: (Req 8) Write this function
-        glm::mat4 localToWorld=this->localTransform.toMat4();
-        Entity * parentPtr= this->parent;
+        glm::mat4 localToWorld = this->localTransform.toMat4();
+        Entity * parentPtr = this->parent;
         // make while loop to all elements till you reach the root
         while(parentPtr!=nullptr){
-            localToWorld=  parentPtr->localTransform.toMat4()*localToWorld ;
-            parentPtr=parentPtr->parent;
+            localToWorld = parentPtr->localTransform.toMat4()*localToWorld ;
+            parentPtr = parentPtr->parent;
         }
         return localToWorld;
     }
