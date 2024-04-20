@@ -18,7 +18,9 @@ namespace our {
             component = entity->addComponent<CameraComponent>();
         } else if (type == FreeCameraControllerComponent::getID()) {
             component = entity->addComponent<FreeCameraControllerComponent>();
-        } else if (type == MovementComponent::getID()) {
+        }else if(type==MeshRendererComponent::getID()){
+            component=entity->addComponent<MeshRendererComponent>();
+        }else if (type == MovementComponent::getID()) {
             component = entity->addComponent<MovementComponent>();
         }
         if(component) component->deserialize(data);
