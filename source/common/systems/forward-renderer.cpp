@@ -28,8 +28,8 @@ namespace our {
             skyPipelineState.faceCulling.enabled = true;
             skyPipelineState.faceCulling.culledFace = GL_FRONT;
 
-            // We choose GL_LESS as the depth testing function since even if the depth of another object drawn is set
-            // to 1, the sky still shouldn't be drawn over it
+            // We choose GL_LEQUAL as the depth testing function since we want to render the sky if the depth buffer
+            // hasn't been updated with a value less than 1 (which is the sky depth)
             skyPipelineState.depthTesting.enabled = true;
             skyPipelineState.depthTesting.function = GL_LEQUAL;
 

@@ -5,6 +5,8 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
+#include "keyboard-movement.hpp"
+#include "enemy.hpp"
 
 namespace our {
 
@@ -22,6 +24,10 @@ namespace our {
             component=entity->addComponent<MeshRendererComponent>();
         }else if (type == MovementComponent::getID()) {
             component = entity->addComponent<MovementComponent>();
+        }else if (type == KeyboardMovementComponent::getID()) {
+            component = entity->addComponent<KeyboardMovementComponent>();
+        }else if (type == EnemyComponent::getID()) {
+            component = entity->addComponent<EnemyComponent>();
         }
         if(component) component->deserialize(data);
     }

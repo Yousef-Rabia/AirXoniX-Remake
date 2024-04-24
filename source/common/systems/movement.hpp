@@ -2,6 +2,7 @@
 
 #include "../ecs/world.hpp"
 #include "../components/movement.hpp"
+#include "application.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
@@ -24,10 +25,17 @@ namespace our
                 // Get the movement component if it exists
                 MovementComponent* movement = entity->getComponent<MovementComponent>();
                 // If the movement component exists
-                if(movement){
+                if(movement) {
                     // Change the position and rotation based on the linear & angular velocity and delta time.
+
                     entity->localTransform.position += deltaTime * movement->linearVelocity;
                     entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+                    if (entity->localTransform.position.x >= ARENA_LENGTH || entity->localTransform.position.x <= -ARENA_LENGTH) {
+                        movement->linearVelocity.x *= -1;
+                    }
+                    if (entity->localTransform.position.z >= ARENA_LENGTH || entity->localTransform.position.z <= -ARENA_LENGTH) {
+                        movement->linearVelocity.z *= -1;
+                    }
                 }
             }
         }

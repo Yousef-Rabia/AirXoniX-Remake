@@ -41,7 +41,7 @@ namespace our {
             return component;
         }
 
-        // This template method searhes for a component of type T and returns a pointer to it
+        // This template method searches for a component of type T and returns a pointer to it
         // If no component of type T was found, it returns a nullptr 
         template<typename T>
         T* getComponent(){
@@ -66,7 +66,7 @@ namespace our {
             return nullptr;
         }
 
-        // This template method searhes for a component of type T and deletes it
+        // This template method searches for a component of type T and deletes it
         template<typename T>
         void deleteComponent(){
             //TODO: (Req 8) Go through the components list and find the first component that can be dynamically cast to "T*".

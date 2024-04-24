@@ -112,6 +112,13 @@ set(STATES_SOURCES
         source/states/material-test-state.hpp
         source/states/entity-test-state.hpp
         source/states/renderer-test-state.hpp
+        source/common/components/keyboard-movement.cpp
+        source/common/components/keyboard-movement.hpp
+        source/common/systems/keyboard-movement.hpp
+        source/common/components/enemy.cpp
+        source/common/components/enemy.hpp
+        source/common/systems/collision.hpp
+        source/common/systems/collision.hpp
 )
 
 # For each example, we add an executable target
