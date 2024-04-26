@@ -8,6 +8,7 @@
 #include "components/camera.hpp"
 #include "../components/covered-cube.hpp"
 #include "../components/enemy.hpp"
+#include "../components/dot.hpp"
 
 
 #include <glm/glm.hpp>
@@ -30,6 +31,7 @@ namespace our {
          */
         const int GRID_DIMENSION = 40;
         const glm::vec2 RESET_STARTPOS = glm::vec2(-1, -1);
+        const glm::vec3 RESET_DOT = glm::vec3(10, -3.05 ,15);
         const float EPS = 1e-4;
 
         // 2D vector to store the cubes Entities Pointer
@@ -38,6 +40,10 @@ namespace our {
         // 2D vector to store the enemies Entities Pointer
         std::vector<std::vector<Entity *>> enemies;
         std::vector<std::vector<bool>> vis;
+
+        // 2D vector to store the dots Entities Pointer
+        std::vector<Entity*> dots;
+        int curDot = 0;
 
         // 2D vector to store the grid (0: Not Drawn, 1: Drawn, 2: Pending)
         std::vector<std::vector<short>> grid;
@@ -104,6 +110,7 @@ namespace our {
             // if the cubes list is not filled, Fill it Once And for All!
             if (!cubesFilled) {
                 cubesFilled = true;
+                fillDotsList(world);
                 fillCubesList(world);
             }
 
@@ -128,7 +135,7 @@ namespace our {
 //                std::cout << "player: " << " X: " << x << " ,Z: " << z << "\n";
 
                 //if it is not drawn, Draw it, else do NOTHING
-                if (grid[x][z] != 1) {
+                if (grid[x][z] != 1 ) {
 //                    std::cout << "Drawing: " << " X: " << cubes[x][z]->localTransform.position.x << " ,Z: "
 //                              << cubes[x][z]->localTransform.position.z << "\n";
                     // NOT DRAWN
@@ -153,8 +160,12 @@ namespace our {
                         std::cout << "start moving Direction: " << direction << " X: " << x << " ,Z: " << z << "\n";
                     }
                     // Draws the cube
-                    cubes[x][z]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
-                                                                     cubes[x][z]->localTransform.position.z);
+                    if(grid[x][z] != 2)
+                    {
+                        dots[curDot++]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
+                                                                            cubes[x][z]->localTransform.position.z);
+                        std::cout << "Drawing dot curDot: " << curDot<< "\n";
+                    }
                     //Mark this cell as pending(Dotted)
                     grid[x][z] = 2;
                 } else {
@@ -239,11 +250,18 @@ namespace our {
         }
 
         void fillBorderAfterCovering() {
-            for (int i = 0; i < GRID_DIMENSION; i++) {
-                for (int j = 0; j < GRID_DIMENSION; j++) {
-                    if (grid[i][j] == 2)
-                        grid[i][j] = 1;
-                }
+            for(int i = curDot-1; i>=0;  i--){
+                int x = glm::round(dots[i]->localTransform.position.x + 19.5);
+                int z = glm::round(dots[i]->localTransform.position.z + 19.5);
+                if(x < 0) x = 0;
+                if(z < 0) z = 0;
+                if(x >= GRID_DIMENSION) x = GRID_DIMENSION - 1;
+                if(z >= GRID_DIMENSION) z = GRID_DIMENSION - 1;
+                cubes[x][z]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
+                                                                 cubes[x][z]->localTransform.position.z);
+                grid[x][z] = 1;
+                dots[i]->localTransform.position = RESET_DOT;
+                curDot=0;
             }
         }
 
@@ -258,6 +276,16 @@ namespace our {
                 }
             }
         }
+
+        void fillDotsList(World *world) {
+            for (auto entity: world->getEntities()) {
+                auto *dot = entity->getComponent<DotComponent>();
+                if (dot) {
+                    dots.push_back(entity);
+                }
+            }
+        }
+
 
         void fillEnemiesList(World *world) {
             for (auto entity: world->getEntities()) {

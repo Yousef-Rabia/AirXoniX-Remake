@@ -7,6 +7,7 @@
 #include "movement.hpp"
 #include "keyboard-movement.hpp"
 #include "enemy.hpp"
+#include "dot.hpp"
 #include "covered-cube.hpp"
 
 namespace our {
@@ -31,6 +32,8 @@ namespace our {
             component = entity->addComponent<EnemyComponent>();
         }else if (type == CoveredCubeComponent::getID()) {
             component = entity->addComponent<CoveredCubeComponent>();
+        }else if (type == DotComponent::getID()) {
+            component = entity->addComponent<DotComponent>();
         }
         if(component) component->deserialize(data);
     }

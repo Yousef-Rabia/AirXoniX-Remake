@@ -182,6 +182,367 @@
           }
         ]
       },
+// ======================= dots =============================================
+	{
+		"position": [-19.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-18.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-17.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-16.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-15.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-14.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-13.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-12.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-11.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-10.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-9.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-8.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-7.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-6.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-5.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-4.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-3.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-2.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-1.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [-0.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [0.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [1.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [2.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [3.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [4.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [5.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [6.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [7.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [8.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [9.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [10.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [11.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [12.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [13.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [14.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [15.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [16.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [17.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [18.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
+	{
+		"position": [19.5, -3.05, 0],
+		"rotation": [0, 0, 0],
+		"scale": [0.4, 0.4, 0.4],
+		"components": [
+			{ "type": "Mesh Renderer", "mesh": "sphere", "material": "wood" },
+			{ "type": "Dot" }
+		]
+	},
 // ======================= Borders =============================================
 		{
 		"position": [-19.5, 0, -19.5],

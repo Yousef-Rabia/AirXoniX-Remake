@@ -122,6 +122,8 @@ set(STATES_SOURCES
         source/common/components/covered-cube.cpp
         source/common/components/covered-cube.hpp
         source/common/systems/area-coverage.hpp
+        source/common/components/dot.hpp
+        source/common/components/dot.cpp
 )
 
 # For each example, we add an executable target
