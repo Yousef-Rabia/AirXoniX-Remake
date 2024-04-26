@@ -15,7 +15,7 @@
 
 // constants
 #define ARENA_LENGTH 20
-#define INITIAL_PLAYER_POSITION glm::vec3(0, 0, 10)
+#define INITIAL_PLAYER_POSITION glm::vec3(-19, 3, 0)
 #define INITIAL_CAMERA_POSITION glm::vec3(0, 15, 20)
 
 namespace our {

@@ -8,6 +8,7 @@
 #include <systems/movement.hpp>
 #include <systems/keyboard-movement.hpp>
 #include <systems/collision.hpp>
+#include <systems/area-coverage.hpp>
 #include <asset-loader.hpp>
 
 // This state shows how to use the ECS framework and deserialization.
@@ -19,6 +20,7 @@ class Playstate: public our::State {
     our::MovementSystem movementSystem;
     our::KeyboardMovementSystem keyboardMovementSystem;
     our::CollisionSystem collisionSystem;
+    our::AreaCoverageSystem areaCoverageSystem;
 
     void onInitialize() override {
         // First of all, we get the scene configuration from the app config
@@ -45,6 +47,7 @@ class Playstate: public our::State {
         cameraController.update(&world, (float)deltaTime);
         keyboardMovementSystem.update(&world, (float)deltaTime);
         collisionSystem.update(&world);
+        areaCoverageSystem.update(&world);
         world.deleteMarkedEntities();
 
         // And finally we use the renderer system to draw the scene

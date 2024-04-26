@@ -1,5 +1,5 @@
 #pragma once
-
+#include "iostream"
 #include "../ecs/entity.hpp"
 #include "camera.hpp"
 #include "mesh-renderer.hpp"
@@ -7,6 +7,7 @@
 #include "movement.hpp"
 #include "keyboard-movement.hpp"
 #include "enemy.hpp"
+#include "covered-cube.hpp"
 
 namespace our {
 
@@ -28,6 +29,8 @@ namespace our {
             component = entity->addComponent<KeyboardMovementComponent>();
         }else if (type == EnemyComponent::getID()) {
             component = entity->addComponent<EnemyComponent>();
+        }else if (type == CoveredCubeComponent::getID()) {
+            component = entity->addComponent<CoveredCubeComponent>();
         }
         if(component) component->deserialize(data);
     }

@@ -1,18 +1,24 @@
 #pragma once
 
 #include <unordered_set>
+#include <vector>
 #include "entity.hpp"
 
 namespace our {
 
     // This class holds a set of entities
     class World {
+        const int ROWS = 40;
+        const int COLS = 40;
         std::unordered_set<Entity*> entities; // These are the entities held by this world
         std::unordered_set<Entity*> markedForRemoval; // These are the entities that are awaiting to be deleted
                                                       // when deleteMarkedEntities is called
+        std::vector<std::vector<short>> grid; // The grid of the board
     public:
 
-        World() = default;
+        World() {
+            grid.resize(ROWS, std::vector<short> (COLS, 0));
+        };
 
         // This will deserialize a json array of entities and add the new entities to the current world
         // If parent pointer is not null, the new entities will be have their parent set to that given pointer

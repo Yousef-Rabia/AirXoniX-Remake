@@ -119,6 +119,9 @@ set(STATES_SOURCES
         source/common/components/enemy.hpp
         source/common/systems/collision.hpp
         source/common/systems/collision.hpp
+        source/common/components/covered-cube.cpp
+        source/common/components/covered-cube.hpp
+        source/common/systems/area-coverage.hpp
 )
 
 # For each example, we add an executable target
