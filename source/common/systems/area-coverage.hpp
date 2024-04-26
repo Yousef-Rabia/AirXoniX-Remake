@@ -130,7 +130,7 @@ namespace our {
                 //if it is not drawn, Draw it, else do NOTHING
                 if (grid[x][z] != 1) {
 //                    std::cout << "Drawing: " << " X: " << cubes[x][z]->localTransform.position.x << " ,Z: "
-                              << cubes[x][z]->localTransform.position.z << "\n";
+//                              << cubes[x][z]->localTransform.position.z << "\n";
                     // NOT DRAWN
                     if (startPos == RESET_STARTPOS) {
                         // Started moving into uncovered area
