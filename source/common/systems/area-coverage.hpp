@@ -63,6 +63,9 @@ namespace our {
         // Flag to check if the enemies list is filled
         bool enemiesFilled = false;
 
+        // Flag to check if there exits at least 2 in the grid (for the DFS)
+        bool found2 = false;
+
         AreaCoverageSystem() {
             // Initialize the grid and cubes list
             startPos = RESET_STARTPOS;
@@ -266,11 +269,22 @@ namespace our {
             }
         }
 
-        void resetDot(){
+        void dieReset(){
             for(int i = curDot-1; i>=0;  i--){
+                int x = glm::round(dots[i]->localTransform.position.x + 19.5);
+                int z = glm::round(dots[i]->localTransform.position.z + 19.5);
+                if(x < 0) x = 0;
+                if(z < 0) z = 0;
+                if(x >= GRID_DIMENSION) x = GRID_DIMENSION - 1;
+                if(z >= GRID_DIMENSION) z = GRID_DIMENSION - 1;
+
+                if(grid[x][z] == 2)
+                    grid[x][z] = 0;
                 dots[i]->localTransform.position = RESET_DOT;
             }
             curDot = 0;
+            startPos = RESET_STARTPOS;
+            prevPos = RESET_STARTPOS;
         }
 
         void fillCubesList(World *world) {

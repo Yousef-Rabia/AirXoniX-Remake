@@ -8,6 +8,8 @@
 #include "application.hpp"
 #include "components/camera.hpp"
 #include "components/dot.hpp"
+#include "../systems/area-coverage.hpp"
+
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
@@ -21,11 +23,14 @@ namespace our
     // The collision system is responsible for the effect of any two entities colliding.
     class CollisionSystem {
     public:
+
+        const glm::vec3 RESET_DOT = glm::vec3(10, -3.05 ,15);
+
         // Define a map to store the last collision time for each entity
         std::unordered_map<Entity*, std::chrono::steady_clock::time_point> lastCollisionTimes;
 
         // This should be called every frame to update all entities containing a MovementComponent.
-        void update(World* world) {
+        void update(World* world, AreaCoverageSystem *areaCoverageSystem) {
             // get the player (later used for collision calculations)
             KeyboardMovementComponent *move = nullptr;
             for(auto entity : world->getEntities()){
@@ -84,6 +89,7 @@ namespace our
                         if(pow(playerPosition.x - entity->localTransform.position.x, 2) + pow(playerPosition.z - entity->localTransform.position.z, 2) <= 5){
                             player->localTransform.position = INITIAL_PLAYER_POSITION;
                             cameraPosition = INITIAL_CAMERA_POSITION;
+                            areaCoverageSystem->dieReset();
                         }
                     }
                 }

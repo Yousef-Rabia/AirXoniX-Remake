@@ -29,7 +29,9 @@
         "grass": "assets/textures/grass_ground_d.jpg",
         "wood": "assets/textures/wood.jpg",
         "glass": "assets/textures/glass-panels.png",
-        "monkey": "assets/textures/monkey.png"
+        "monkey": "assets/textures/monkey.png",
+				"ground": "assets/textures/ground.png",
+				"ground2": "assets/textures/ground2.png"
 	  },
       "meshes":{
         "cube": "assets/models/cube.obj",
@@ -92,6 +94,36 @@
           },
           "tint": [1, 1, 1, 1],
           "texture": "grass",
+          "sampler": "default"
+        },
+				"ground":{
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling":{
+              "enabled": false
+            },
+            "depthTesting":{
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "ground",
+          "sampler": "default"
+        },
+				"ground2":{
+          "type": "textured",
+          "shader": "textured",
+          "pipelineState": {
+            "faceCulling":{
+              "enabled": false
+            },
+            "depthTesting":{
+              "enabled": true
+            }
+          },
+          "tint": [1, 1, 1, 1],
+          "texture": "ground2",
           "sampler": "default"
         },
         "monkey":{

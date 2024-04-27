@@ -46,7 +46,7 @@ class Playstate: public our::State {
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
         keyboardMovementSystem.update(&world, (float)deltaTime);
-        collisionSystem.update(&world);
+        collisionSystem.update(&world, &areaCoverageSystem);
         areaCoverageSystem.update(&world);
         world.deleteMarkedEntities();
 
