@@ -70,6 +70,7 @@ class Playstate: public our::State {
         // Clear the world
         world.clear();
         // and we delete all the loaded assets to free memory on the RAM and the VRAM
+        areaCoverageSystem.exit_reset();
         our::clearAllAssets();
     }
 };
