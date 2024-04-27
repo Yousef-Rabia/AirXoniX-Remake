@@ -155,7 +155,6 @@ namespace our {
 
                     if(grid[x][z] != 2)
                     {
-                        std::cout << "Drawing DOT \n";
                         dots[curDot++]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
                                                                             cubes[x][z]->localTransform.position.z);
                     }
@@ -236,7 +235,6 @@ namespace our {
                 if(z < 0) z = 0;
                 if(x >= GRID_DIMENSION) x = GRID_DIMENSION - 1;
                 if(z >= GRID_DIMENSION) z = GRID_DIMENSION - 1;
-                if(!cubes[x][z]) std::cout << "NOT FOUND CUBE\n";
 
                 cubes[x][z]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
                                                                  cubes[x][z]->localTransform.position.z);
