@@ -38,7 +38,7 @@ namespace our {
         std::vector<std::vector<Entity *>> cubes;
 
         // 2D vector to store the enemies Entities Pointer
-        std::vector<std::vector<Entity *>> enemies;
+        std::vector<Entity*> enemies;
         std::vector<std::vector<bool>> vis;
 
         // 2D vector to store the dots Entities Pointer
@@ -68,14 +68,12 @@ namespace our {
             startPos = RESET_STARTPOS;
             cubes.resize(GRID_DIMENSION);
             grid.resize(GRID_DIMENSION);
-            enemies.resize(GRID_DIMENSION);
             vis.resize(GRID_DIMENSION);
 
             // Fill the grid with 0s and 1s (1s are the border)
             for (int i = 0; i < GRID_DIMENSION; i++) {
                 grid[i].resize(GRID_DIMENSION);
                 cubes[i].resize(GRID_DIMENSION);
-                enemies[i].resize(GRID_DIMENSION);
                 vis[i].resize(GRID_DIMENSION,false);
                 for (int j = 0; j < GRID_DIMENSION; j++) {
                     if ((i >= 0 && i <= 1) || (i <= GRID_DIMENSION - 1 && i >= GRID_DIMENSION - 2) ||
@@ -196,7 +194,8 @@ namespace our {
                                 break;
                             case 1:
 //                                std::cout << "Sent: " << " X: " << startPos.x + 1 << " ,Z: " << startPos.y << "\n";
-                                // checks if the enemy exists in the covered area, DO NOT fill it
+//                                std::cout << "Sent: " << " X: " << startPos.x - 1 << " ,Z: " << startPos.y << "\n";
+//                                printGrid();                                // checks if the enemy exists in the covered area, DO NOT fill it
                                 if(!enemyExists(startPos.x + 1, startPos.y))
                                     dfsAndDraw(startPos.x + 1, startPos.y);
 
@@ -205,8 +204,9 @@ namespace our {
                                     dfsAndDraw(startPos.x - 1, startPos.y);
                                 break;
                             case 2:
-//                                std::cout << "Sent: " << " X: " << startPos.x + 1 << " ,Z: " << startPos.y << "\n";
-                                // checks if the enemy exists in the covered area, DO NOT fill it
+//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y +1<< "\n";
+//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y -1<< "\n";
+//                                printGrid();                                // checks if the enemy exists in the covered area, DO NOT fill it
                                 if(!enemyExists(startPos.x, startPos.y - 1))
                                     dfsAndDraw(startPos.x, startPos.y - 1);
 
@@ -214,8 +214,9 @@ namespace our {
                                 if(!enemyExists(startPos.x, startPos.y + 1))
                                     dfsAndDraw(startPos.x, startPos.y + 1);                                break;
                             case 3:
-//                                std::cout << "Sent: " << " X: " << startPos.x + 1 << " ,Z: " << startPos.y << "\n";
-                                // checks if the enemy exists in the covered area, DO NOT fill it
+//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y +1<< "\n";
+//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y -1<< "\n";
+//                                printGrid();                                // checks if the enemy exists in the covered area, DO NOT fill it
                                 if(!enemyExists(startPos.x, startPos.y - 1))
                                     dfsAndDraw(startPos.x, startPos.y - 1);
 
@@ -265,6 +266,13 @@ namespace our {
             }
         }
 
+        void resetDot(){
+            for(int i = curDot-1; i>=0;  i--){
+                dots[i]->localTransform.position = RESET_DOT;
+            }
+            curDot = 0;
+        }
+
         void fillCubesList(World *world) {
             for (auto entity: world->getEntities()) {
                 auto *coveredCube = entity->getComponent<CoveredCubeComponent>();
@@ -291,14 +299,7 @@ namespace our {
             for (auto entity: world->getEntities()) {
                 auto *enemy = entity->getComponent<EnemyComponent>();
                 if (enemy) {
-                    glm::vec3 enemyPosition = entity->localTransform.position;
-                    int x = glm::round(enemyPosition.x + 19.5);
-                    int z = glm::round(enemyPosition.z + 19.5);
-                    if(x < 0) x = 0;
-                    if(z < 0) z = 0;
-                    if(x >= GRID_DIMENSION) x = GRID_DIMENSION - 1;
-                    if(z >= GRID_DIMENSION) z = GRID_DIMENSION - 1;
-                    enemies[x][z] = entity;
+                    enemies.push_back(entity);
                 }
             }
         }
@@ -308,10 +309,16 @@ namespace our {
                 grid[x][y] == 2)
                 return false;
             vis[x][y] = true;
-            if (enemies[x][y]) {
-//                std::cout << "Enemy AT: " << " X: " << x << " ,Z: " << y << "\n";
-                return true;
+
+            for(auto entity: enemies){
+                glm::vec3 enemyPosition = entity->localTransform.position;
+                int enemyX = glm::round(enemyPosition.x + 19.5);
+                int enemyY = glm::round(enemyPosition.z + 19.5);
+                if(enemyX == x && enemyY == y){
+                    return true;
+                }
             }
+
             if(enemyExists(x + 1, y) ||
             enemyExists(x - 1, y) ||
             enemyExists(x, y + 1) ||
@@ -331,12 +338,11 @@ namespace our {
         }
 
         void printEnemy(){
-            for (int i = 0; i < GRID_DIMENSION; i++) {
-                for (int j = 0; j < GRID_DIMENSION; j++) {
-                    if(enemies[i][j]){
-                        std::cout << "Enemy AT: " << " X: " << i << " ,Z: " << j << "\n";
-                    }
-                }
+            for(auto enemyEntity: enemies){
+                glm::vec3 enemyPosition = enemyEntity->localTransform.position;
+                int enemyX = glm::round(enemyPosition.x + 19.5);
+                int enemyY = glm::round(enemyPosition.z + 19.5);
+                std::cout << "Enemy AT: " << " X: " << enemyX << " ,Z: " << enemyY << "\n";
             }
         }
 
