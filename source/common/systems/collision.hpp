@@ -7,6 +7,7 @@
 #include "../components/enemy.hpp"
 #include "application.hpp"
 #include "components/camera.hpp"
+#include "components/dot.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
@@ -64,14 +65,14 @@ namespace our
                                     auto currentTime = std::chrono::steady_clock::now();
                                     auto it = lastCollisionTimes.find(entity);
                                     if (it == lastCollisionTimes.end() ||
-                                        (currentTime - it->second) >= std::chrono::seconds(1)) {
+                                        (currentTime - it->second) >= std::chrono::milliseconds (10)) {
                                         // Update the last collision time for this entity
                                         lastCollisionTimes[entity] = currentTime;
                                         lastCollisionTimes[otherEnemyEntity] = currentTime;
 
-                                        glm::vec3 tempVelo = entity->getComponent<MovementComponent>()->linearVelocity;
+                                        glm::vec3 tempVelocity = entity->getComponent<MovementComponent>()->linearVelocity;
                                         entity->getComponent<MovementComponent>()->linearVelocity = otherEnemyEntity->getComponent<MovementComponent>()->linearVelocity;
-                                        otherEnemyEntity->getComponent<MovementComponent>()->linearVelocity = tempVelo;
+                                        otherEnemyEntity->getComponent<MovementComponent>()->linearVelocity = tempVelocity;
                                     }
                                 }
                             }
@@ -80,11 +81,10 @@ namespace our
                     // and here we do enemy collision logic with the player
                     if(enemy && player){
                         glm::vec3 playerPosition = player->localTransform.position;
-                        if(pow(playerPosition.x - entity->localTransform.position.x, 2) + pow(playerPosition.z - entity->localTransform.position.z, 2) <= 1.5){
+                        if(pow(playerPosition.x - entity->localTransform.position.x, 2) + pow(playerPosition.z - entity->localTransform.position.z, 2) <= 5){
                             player->localTransform.position = INITIAL_PLAYER_POSITION;
                             cameraPosition = INITIAL_CAMERA_POSITION;
                         }
-
                     }
                 }
             }

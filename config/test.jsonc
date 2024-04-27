@@ -30,7 +30,7 @@
         "wood": "assets/textures/wood.jpg",
         "glass": "assets/textures/glass-panels.png",
         "monkey": "assets/textures/monkey.png"
-      },
+	  },
       "meshes":{
         "cube": "assets/models/cube.obj",
         "monkey": "assets/models/monkey.obj",
@@ -143,7 +143,7 @@
     },
     "world":[
       {
-        "position": [0, 15, 20],
+        "position": [0, 18, 25],
         "rotation": [-50, 0, 0],
         "components": [
           {
@@ -152,8 +152,7 @@
         ]
       },
       {
-        "position": [-19.5, 1.02, 0],
-        "rotation": [0, 180, 0],
+        "position": [0, 1.02, 19],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -15117,7 +15116,7 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [15, 0, 23],
+            "linearVelocity": [5, 0, 8],
             "angularVelocity": [0, 1000, 0]
           },
           {
@@ -15136,7 +15135,7 @@
           },
           {
             "type": "Movement",
-            "linearVelocity": [19, 0, 17],
+            "linearVelocity": [9, 0, 7],
             "angularVelocity": [0, 1000, 0]
           },
           {
