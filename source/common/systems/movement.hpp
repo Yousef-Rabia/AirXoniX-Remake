@@ -26,6 +26,7 @@ namespace our
 
         // This should be called every frame to update all entities containing a MovementComponent.
         void update(World* world, float deltaTime) {
+            if(deltaTime > 0.1) return;
             // For each entity in the world
             for(auto entity : world->getEntities()){
                 // Get the movement component if it exists
@@ -39,7 +40,6 @@ namespace our
                     entity->localTransform.rotation += deltaTime * movement->angularVelocity;
 
                     // outer wall collision
-
                     if(enemy){
                         // Collision with created walls
                         double leastDistance = 100;
@@ -56,7 +56,7 @@ namespace our
 
                                 distance = pow(cubePosition.x - entityPosition.x, 2) + pow(cubePosition.z - entityPosition.z, 2);
                                 if(distance <= 3){
-                                    if (it == lastCollisionTimes.end() || (currentTime - it->second) >= std::chrono::milliseconds (50)) {
+                                    if (it == lastCollisionTimes.end() || (currentTime - it->second) >= std::chrono::milliseconds (75)) {
                                         if(distance < leastDistance)
                                         {
                                             cubeCollision = true;
@@ -73,7 +73,6 @@ namespace our
                             auto currentTime = std::chrono::steady_clock::now();
 
                             // Update the last collision time for this entity
-                            printf("%s", "collide// ");
                             lastCollisionTimes[entity] = currentTime;
                             // Reverse its linear velocity depending on where it hit the wall
                             if(abs(cubePosition.x - entityPosition.x) > abs(cubePosition.z - entityPosition.z))

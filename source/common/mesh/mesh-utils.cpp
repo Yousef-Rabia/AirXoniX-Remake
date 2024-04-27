@@ -52,11 +52,11 @@ our::Mesh* our::mesh_utils::loadOBJ(const std::string& filename) {
                     attrib.normals[3 * index.normal_index + 1],
                     attrib.normals[3 * index.normal_index + 2]
             };
-
-            vertex.tex_coord = {
-                    attrib.texcoords[2 * index.texcoord_index + 0],
-                    attrib.texcoords[2 * index.texcoord_index + 1]
-            };
+            if (index.texcoord_index > -1)
+                vertex.tex_coord = {
+                        attrib.texcoords[2 * index.texcoord_index + 0],
+                        attrib.texcoords[2 * index.texcoord_index + 1]
+                };
 
 
             vertex.color = {

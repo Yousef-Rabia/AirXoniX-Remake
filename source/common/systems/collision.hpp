@@ -53,6 +53,7 @@ namespace our
                 MovementComponent* movement = entity->getComponent<MovementComponent>();
                 // If the movement component exists
                 if(movement) {
+                    glm::vec3& entityPosition = entity->localTransform.position;
                     auto* enemy = entity->getComponent<EnemyComponent>();
                     Entity* player = nullptr;
                     if(move) player = move->getOwner();
@@ -64,8 +65,8 @@ namespace our
                             auto *otherEnemyComponent = otherEnemyEntity->getComponent<EnemyComponent>();
                             if (otherEnemyComponent) {
                                 glm::vec3 otherEnemyPosition = otherEnemyEntity->localTransform.position;
-                                if (pow(otherEnemyPosition.x - entity->localTransform.position.x, 2) +
-                                    pow(otherEnemyPosition.z - entity->localTransform.position.z, 2) <= 5) {
+                                if (pow(otherEnemyPosition.x - entityPosition.x, 2) +
+                                    pow(otherEnemyPosition.z - entityPosition.z, 2) <= 5) {
                                     // Check if enough time has passed since the last collision
                                     auto currentTime = std::chrono::steady_clock::now();
                                     auto it = lastCollisionTimes.find(entity);
@@ -83,13 +84,27 @@ namespace our
                             }
                         }
                     }
-                    // and here we do enemy collision logic with the player
-                    if(enemy && player){
+                    // Enemy collision logic with the player
+                    if(enemy && player) {
                         glm::vec3 playerPosition = player->localTransform.position;
-                        if(pow(playerPosition.x - entity->localTransform.position.x, 2) + pow(playerPosition.z - entity->localTransform.position.z, 2) <= 5){
+                        if (pow(playerPosition.x - entityPosition.x, 2) + pow(playerPosition.z - entityPosition.z, 2) <=
+                            5) {
                             player->localTransform.position = INITIAL_PLAYER_POSITION;
                             cameraPosition = INITIAL_CAMERA_POSITION;
                             areaCoverageSystem->dieReset();
+                        }
+
+                        // Enemy collision logic with the line the player is drawing
+                        std::vector<Entity*> dots = areaCoverageSystem->dots;
+                        for(auto dot : dots)
+                        {
+                            glm::vec3 dotPosition = dot->localTransform.position;
+                            if (dotPosition.y < 0) continue;
+                            if(pow(dotPosition.x - entityPosition.x, 2) + pow(dotPosition.z - entityPosition.z, 2) <= 2.5){
+                                player->localTransform.position = INITIAL_PLAYER_POSITION;
+                                cameraPosition = INITIAL_CAMERA_POSITION;
+                                areaCoverageSystem->dieReset();
+                            }
                         }
                     }
                 }

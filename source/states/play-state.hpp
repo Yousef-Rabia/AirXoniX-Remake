@@ -36,6 +36,7 @@ class Playstate: public our::State {
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
         keyboardMovementSystem.enter(getApp());
+        // areaCoverageSystem.dieReset();
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
@@ -45,7 +46,7 @@ class Playstate: public our::State {
         // Here, we just run a bunch of systems to control the world logic
         movementSystem.update(&world, (float)deltaTime);
         cameraController.update(&world, (float)deltaTime);
-        keyboardMovementSystem.update(&world, (float)deltaTime);
+        keyboardMovementSystem.update(&world, (float)deltaTime, &areaCoverageSystem);
         collisionSystem.update(&world, &areaCoverageSystem);
         areaCoverageSystem.update(&world);
         world.deleteMarkedEntities();

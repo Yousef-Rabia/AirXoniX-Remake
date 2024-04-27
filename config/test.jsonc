@@ -26,18 +26,19 @@
       },
       "textures":{
         "moon": "assets/textures/moon.jpg",
-        "grass": "assets/textures/grass_ground_d.jpg",
-        "wood": "assets/textures/wood.jpg",
+        "arena": "assets/textures/ground2.png",
+        "wood": "assets/textures/wood-magenta.jpg",
         "glass": "assets/textures/glass-panels.png",
         "monkey": "assets/textures/monkey.png",
-				"ground": "assets/textures/ground.png",
-				"ground2": "assets/textures/ground2.png"
+		"ground": "assets/textures/ground.png",
+		"ground2": "assets/textures/ground2.png"
 	  },
       "meshes":{
         "cube": "assets/models/cube.obj",
         "monkey": "assets/models/monkey.obj",
         "plane": "assets/models/plane.obj",
-        "sphere": "assets/models/sphere.obj"
+        "sphere": "assets/models/sphere.obj",
+        "player": "assets/models/player.obj"
       },
       "samplers":{
         "default":{},
@@ -81,7 +82,7 @@
           "texture": "glass",
           "sampler": "pixelated"
         },
-        "grass":{
+        "arena":{
           "type": "textured",
           "shader": "textured",
           "pipelineState": {
@@ -93,7 +94,7 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "grass",
+          "texture": "arena",
           "sampler": "default"
         },
 				"ground":{
@@ -126,9 +127,9 @@
           "texture": "ground2",
           "sampler": "default"
         },
-        "monkey":{
-          "type": "textured",
-          "shader": "textured",
+        "player":{
+          "type": "tinted",
+          "shader": "tinted",
           "pipelineState": {
             "faceCulling":{
               "enabled": false
@@ -137,8 +138,7 @@
               "enabled": true
             }
           },
-          "tint": [1, 1, 1, 1],
-          "texture": "monkey",
+          "tint": [0.0, 0.8, 1, 1],
           "sampler": "default"
         },
         "moon":{
@@ -167,7 +167,7 @@
               "enabled": true
             }
           },
-          "tint": [1, 1, 1, 1],
+          "tint": [0.7, 0.7, 0.7, 1],
           "texture": "wood",
           "sampler": "default"
         }
@@ -180,16 +180,19 @@
         "components": [
           {
             "type": "Camera"
+          },
+		  {
+            "type": "Movement"
           }
         ]
       },
       {
-        "position": [0, 1.02, 19],
+        "position": [0, 2, 19],
         "components": [
           {
             "type": "Mesh Renderer",
-            "mesh": "monkey",
-            "material": "monkey"
+            "mesh": "player",
+            "material": "player"
           },
           {
             "type": "Keyboard Movement",
@@ -209,7 +212,7 @@
           {
             "type": "Mesh Renderer",
             "mesh": "plane",
-            "material": "grass"
+            "material": "arena"
           }
         ]
       },

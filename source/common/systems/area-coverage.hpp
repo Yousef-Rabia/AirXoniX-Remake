@@ -184,10 +184,6 @@ namespace our {
                         if(point1== RESET_STARTPOS || point2== RESET_STARTPOS) {
                             setPoint1_2(calcDirection(endPos, prevPos), prevPos);
                         }
-                        printEnemy();
-                      std::cout << "Sent: " << " X: " << point1.x << " ,Z: " << point1.y << "\n";
-                      std::cout << "Sent: " << " X: " << point2.x  << " ,Z: " << point2.y << "\n";
-                      printGrid();
 
                         // checks if the enemy exists in the covered area, DO NOT fill it
                         if(point1 != RESET_STARTPOS && !enemyExists(point1.x, point1.y)) {
@@ -259,6 +255,8 @@ namespace our {
             curDot = 0;
             startPos = RESET_STARTPOS;
             prevPos = RESET_STARTPOS;
+            point1 = RESET_STARTPOS;
+            point2 = RESET_STARTPOS;
         }
 
         void fillCubesList(World *world) {
@@ -398,6 +396,10 @@ namespace our {
                 int enemyY = glm::round(enemyPosition.z + 19.5);
                 std::cout << "Enemy AT: " << " X: " << enemyX << " ,Z: " << enemyY << "\n";
             }
+        }
+
+        bool isBuilding(){
+           return (startPos != RESET_STARTPOS);
         }
 
     };
