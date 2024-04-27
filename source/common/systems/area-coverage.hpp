@@ -54,8 +54,13 @@ namespace our {
         // Previous Position of the last drawn cell I stepped on
         glm::vec2 prevPos;
 
-        // Direction of the movement
-        int direction = -1;
+        glm::vec2 endPos;
+
+        glm::vec2 point1,point2;
+
+        // Direction of the movement initially
+        int startDirection = -1;
+
 
         // Flag to check if the cubes list is filled
         bool cubesFilled = false;
@@ -69,6 +74,9 @@ namespace our {
         AreaCoverageSystem() {
             // Initialize the grid and cubes list
             startPos = RESET_STARTPOS;
+            endPos = RESET_STARTPOS;
+            point1 = RESET_STARTPOS;
+            point2 = RESET_STARTPOS;
             cubes.resize(GRID_DIMENSION);
             grid.resize(GRID_DIMENSION);
             vis.resize(GRID_DIMENSION);
@@ -123,7 +131,6 @@ namespace our {
 
             if (player) {
                 // getting their place in the 2d vector
-//                std::cout << "player: " << " X: " << playerPosition.x << " ,Z: " << playerPosition.z << "\n";
                 int x = glm::round(playerPosition.x + 19.5);
                 int z = glm::round(playerPosition.z + 19.5);
 
@@ -133,41 +140,30 @@ namespace our {
                 if (x >= GRID_DIMENSION) x = GRID_DIMENSION - 1;
                 if (z >= GRID_DIMENSION) z = GRID_DIMENSION - 1;
 
-//                std::cout << "player: " << " X: " << x << " ,Z: " << z << "\n";
-
                 //if it is not drawn, Draw it, else do NOTHING
                 if (grid[x][z] != 1 ) {
-//                    std::cout << "Drawing: " << " X: " << cubes[x][z]->localTransform.position.x << " ,Z: "
-//                              << cubes[x][z]->localTransform.position.z << "\n";
                     // NOT DRAWN
                     if (startPos == RESET_STARTPOS) {
                         // Started moving into uncovered area
                         startPos = glm::vec2(x, z);
 
                         // calculates direction of first movement
-                        if (startPos.x == prevPos.x) {
-                            if (startPos.y > prevPos.y) {
-                                direction = 0; //DOWN
-                            } else {
-                                direction = 1; //UP
-                            }
-                        } else {
-                            if (startPos.x > prevPos.x) {
-                                direction = 2; //Right
-                            } else {
-                                direction = 3; //Left
-                            }
-                        }
-                        std::cout << "start moving Direction: " << direction << " X: " << x << " ,Z: " << z << "\n";
+                        startDirection = calcDirection(prevPos, startPos);
+                        std::cout << "start moving in Direction: " << startDirection << " ,X: " << x << " ,Z: " << z << "\n";
                     }
                     // Draws the cube
                     if(grid[x][z] != 2)
                     {
                         dots[curDot++]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
                                                                             cubes[x][z]->localTransform.position.z);
-                        std::cout << "Drawing dot curDot: " << curDot<< "\n";
                     }
                     //Mark this cell as pending(Dotted)
+                    if(endPos ==RESET_STARTPOS)
+                        endPos = prevPos;
+                    if((point1== RESET_STARTPOS || point2== RESET_STARTPOS)){
+                        setPoint1_2(calcDirection(endPos, glm::vec2(x, z)), glm::vec2(x, z));
+                    }
+                    endPos = glm::vec2(x, z);
                     grid[x][z] = 2;
                 } else {
                     // Already DRAWN
@@ -179,58 +175,29 @@ namespace our {
                     //checks if this was the END of moving into uncovered area, if so, starts the DFS
                     if (startPos != RESET_STARTPOS && startPos != prevPos) {
                         fillBorderAfterCovering();
-                        printEnemy();
-                        switch (direction) {
-                            case 0:
-//                                std::cout << "Sent: " << " X: " << startPos.x + 1 << " ,Z: " << startPos.y << "\n";
-//                                std::cout << "Sent: " << " X: " << startPos.x - 1 << " ,Z: " << startPos.y << "\n";
-//                                printGrid();
-
-                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x + 1, startPos.y)) {
-                                    dfsAndDraw(startPos.x + 1, startPos.y);
-                                }
-
-                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x - 1, startPos.y))
-                                    dfsAndDraw(startPos.x - 1, startPos.y);
-                                break;
-                            case 1:
-//                                std::cout << "Sent: " << " X: " << startPos.x + 1 << " ,Z: " << startPos.y << "\n";
-//                                std::cout << "Sent: " << " X: " << startPos.x - 1 << " ,Z: " << startPos.y << "\n";
-//                                printGrid();                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x + 1, startPos.y))
-                                    dfsAndDraw(startPos.x + 1, startPos.y);
-
-                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x - 1, startPos.y))
-                                    dfsAndDraw(startPos.x - 1, startPos.y);
-                                break;
-                            case 2:
-//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y +1<< "\n";
-//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y -1<< "\n";
-//                                printGrid();                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x, startPos.y - 1))
-                                    dfsAndDraw(startPos.x, startPos.y - 1);
-
-                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x, startPos.y + 1))
-                                    dfsAndDraw(startPos.x, startPos.y + 1);                                break;
-                            case 3:
-//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y +1<< "\n";
-//                                std::cout << "Sent: " << " X: " << startPos.x << " ,Z: " << startPos.y -1<< "\n";
-//                                printGrid();                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x, startPos.y - 1))
-                                    dfsAndDraw(startPos.x, startPos.y - 1);
-
-                                // checks if the enemy exists in the covered area, DO NOT fill it
-                                if(!enemyExists(startPos.x, startPos.y + 1))
-                                    dfsAndDraw(startPos.x, startPos.y + 1);
-                                break;
+                        if(point1== RESET_STARTPOS || point2== RESET_STARTPOS) {
+                            setPoint1_2(calcDirection(endPos, prevPos), prevPos);
                         }
+                        printEnemy();
+//                      std::cout << "Sent: " << " X: " << point1.x << " ,Z: " << point1.y << "\n";
+//                      std::cout << "Sent: " << " X: " << point2.x  << " ,Z: " << point2.y << "\n";
+//                      printGrid();
+
+                        // checks if the enemy exists in the covered area, DO NOT fill it
+                        if(point1 != RESET_STARTPOS && !enemyExists(point1.x, point1.y)) {
+                            dfsAndDraw(point1.x, point1.y);
+                        }
+
+                        // checks if the enemy exists in the covered area, DO NOT fill it
+                        if(point2 != RESET_STARTPOS && !enemyExists(point2.x, point2.y))
+                            dfsAndDraw(point2.x, point2.y);
+
                         vis.clear();
                         vis.resize(GRID_DIMENSION, std::vector<bool>(GRID_DIMENSION, false));
                         startPos = RESET_STARTPOS;
+                        point1 = RESET_STARTPOS;
+                        point2 = RESET_STARTPOS;
+                        endPos = RESET_STARTPOS;
                     }
 
                 }
@@ -340,6 +307,58 @@ namespace our {
                 return true;
             }
             return false;
+        }
+
+        int calcDirection(glm::vec2 start, glm::vec2 end){
+            if(start.x == end.x){
+                if(start.y > end.y){
+                    return 1; //Up
+                }else{
+                    return 0; //Down
+                }
+            }else{
+                if(start.x > end.x){
+                    return 2; //Right
+                }else{
+                    return 3; //Left
+                }
+            }
+        }
+
+        void setPoint1_2 (int direction, glm::vec2 curPos){
+            // DO NOT try to find ONLY if both are already set!
+            if((point1 != RESET_STARTPOS && point2 != RESET_STARTPOS)) return;
+
+            switch (direction) {
+                //==============> DOWN <===============
+                case 0:
+                    if(grid[curPos.x + 1][curPos.y] == 0)
+                        point1 = glm::vec2(curPos.x + 1, curPos.y);
+                    if(grid[curPos.x - 1][curPos.y] == 0)
+                        point2 = glm::vec2(curPos.x - 1, curPos.y);
+                    break;
+                //==============> UP <===============
+                case 1:
+                    if(grid[curPos.x + 1][curPos.y] == 0)
+                        point1 = glm::vec2(curPos.x + 1, curPos.y);
+                    if(grid[curPos.x - 1][curPos.y] == 0)
+                        point2 = glm::vec2(curPos.x - 1, curPos.y);
+                    break;
+                //==============> RIGHT <===============
+                case 2:
+                    if(grid[curPos.x][curPos.y + 1] == 0)
+                        point1 = glm::vec2(curPos.x, curPos.y + 1);
+                    if(grid[curPos.x][curPos.y - 1] == 0)
+                        point2 = glm::vec2(curPos.x, curPos.y - 1);
+                    break;
+                //==============> LEFT <===============
+                case 3:
+                    if(grid[curPos.x][curPos.y + 1] == 0)
+                        point1 = glm::vec2(curPos.x, curPos.y + 1);
+                    if(grid[curPos.x][curPos.y - 1] == 0)
+                        point2 = glm::vec2(curPos.x, curPos.y - 1);
+                    break;
+            }
         }
 
         void printGrid(){
