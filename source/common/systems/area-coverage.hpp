@@ -152,12 +152,18 @@ namespace our {
                         std::cout << "start moving in Direction: " << startDirection << " ,X: " << x << " ,Z: " << z << "\n";
                     }
                     // Draws the cube
+
                     if(grid[x][z] != 2)
                     {
                         dots[curDot++]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
                                                                             cubes[x][z]->localTransform.position.z);
                     }
-                    //Mark this cell as pending(Dotted)
+
+                    if(point1 == glm::vec2 (x, z) || point2 == glm::vec2 (x, z)){
+                        point1 = RESET_STARTPOS;
+                        point2 = RESET_STARTPOS;
+                    }
+
                     if(endPos ==RESET_STARTPOS)
                         endPos = prevPos;
                     if((point1== RESET_STARTPOS || point2== RESET_STARTPOS)){
@@ -179,9 +185,9 @@ namespace our {
                             setPoint1_2(calcDirection(endPos, prevPos), prevPos);
                         }
                         printEnemy();
-//                      std::cout << "Sent: " << " X: " << point1.x << " ,Z: " << point1.y << "\n";
-//                      std::cout << "Sent: " << " X: " << point2.x  << " ,Z: " << point2.y << "\n";
-//                      printGrid();
+                      std::cout << "Sent: " << " X: " << point1.x << " ,Z: " << point1.y << "\n";
+                      std::cout << "Sent: " << " X: " << point2.x  << " ,Z: " << point2.y << "\n";
+                      printGrid();
 
                         // checks if the enemy exists in the covered area, DO NOT fill it
                         if(point1 != RESET_STARTPOS && !enemyExists(point1.x, point1.y)) {
@@ -192,6 +198,7 @@ namespace our {
                         if(point2 != RESET_STARTPOS && !enemyExists(point2.x, point2.y))
                             dfsAndDraw(point2.x, point2.y);
 
+                        calcCoveredPercentage();
                         vis.clear();
                         vis.resize(GRID_DIMENSION, std::vector<bool>(GRID_DIMENSION, false));
                         startPos = RESET_STARTPOS;
@@ -368,6 +375,20 @@ namespace our {
                 }
                 std::cout << "\n";
             }
+        }
+
+        float calcCoveredPercentage(){
+            int tot= 0 ;
+            for (int i = 0; i < GRID_DIMENSION; i++) {
+                for (int j = 0; j < GRID_DIMENSION; j++) {
+                    if(grid[i][j] == 1)
+                        tot++;
+                }
+            }
+            tot-=  (40*4 + 38 * 4);
+            float percentage = tot/(1288.0) * 100.0;
+            std::cout<<"Covered Percentage: "<<percentage <<"%, #Cells: "<<tot<<"\n";
+            return percentage;
         }
 
         void printEnemy(){
