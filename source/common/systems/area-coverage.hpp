@@ -403,6 +403,36 @@ namespace our {
            return (startPos != RESET_STARTPOS);
         }
 
+        void exit_reset(){
+            cubesFilled = false;
+            enemiesFilled = false;
+            dots.clear();
+            grid.clear();
+            enemies.clear();
+            dots.clear();
+            vis.clear();
+            startPos = RESET_STARTPOS;
+            endPos = RESET_STARTPOS;
+            point1 = RESET_STARTPOS;
+            point2 = RESET_STARTPOS;
+            cubes.resize(GRID_DIMENSION);
+            grid.resize(GRID_DIMENSION);
+            vis.resize(GRID_DIMENSION);
+
+            // Fill the grid with 0s and 1s (1s are the border)
+            for (int i = 0; i < GRID_DIMENSION; i++) {
+                grid[i].resize(GRID_DIMENSION);
+                cubes[i].resize(GRID_DIMENSION);
+                vis[i].resize(GRID_DIMENSION,false);
+                for (int j = 0; j < GRID_DIMENSION; j++) {
+                    if ((i >= 0 && i <= 1) || (i <= GRID_DIMENSION - 1 && i >= GRID_DIMENSION - 2) ||
+                        (j >= 0 && j <= 1) || (j <= GRID_DIMENSION - 1 && j >= GRID_DIMENSION - 2))
+                        grid[i][j] = 1;
+                    else
+                        grid[i][j] = 0;
+                }
+            }
+        }
     };
 
 }
