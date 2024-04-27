@@ -231,6 +231,7 @@ namespace our {
                 if(z < 0) z = 0;
                 if(x >= GRID_DIMENSION) x = GRID_DIMENSION - 1;
                 if(z >= GRID_DIMENSION) z = GRID_DIMENSION - 1;
+
                 cubes[x][z]->localTransform.position = glm::vec3(cubes[x][z]->localTransform.position.x, 0,
                                                                  cubes[x][z]->localTransform.position.z);
                 grid[x][z] = 1;
