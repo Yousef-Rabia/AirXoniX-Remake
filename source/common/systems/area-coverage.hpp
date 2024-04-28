@@ -399,8 +399,15 @@ namespace our {
             }
         }
 
+        // Returns true if the player character is currently building blocks (to move automatically)
         bool isBuilding(){
            return (startPos != RESET_STARTPOS);
+        }
+
+        static bool isNeighbourCube(Entity* cube1, Entity* cube2){
+            float xDistance = abs(cube1->localTransform.position.x - cube2->localTransform.position.x);
+            float zDistance = abs(cube1->localTransform.position.z - cube2->localTransform.position.z);
+            return (xDistance + zDistance <= 1);
         }
 
         void exit_reset(){

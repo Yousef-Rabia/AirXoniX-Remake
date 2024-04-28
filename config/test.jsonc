@@ -200,7 +200,7 @@
           },
           {
             "type": "Movement",
-            "angularVelocity": [0, 1000, 0]
+            "angularVelocity": [0, -1000, 0]
           }
         ]
       },
@@ -15510,7 +15510,6 @@
       },
       {
         "position": [5, 0, 0],
-        "rotation": [45, 45, 0],
         "scale": [1, 1, 1],
         "components": [
           {
@@ -15521,7 +15520,7 @@
           {
             "type": "Movement",
             "linearVelocity": [5, 0, 8],
-            "angularVelocity": [0, 1000, 0]
+            "angularVelocity": [0, 0, 0]
           },
           {
             "type": "Enemy"
@@ -15540,7 +15539,7 @@
           {
             "type": "Movement",
             "linearVelocity": [9, 0, 7],
-            "angularVelocity": [0, 1000, 0]
+            "angularVelocity": [0, 0, 0]
           },
           {
             "type": "Enemy"
