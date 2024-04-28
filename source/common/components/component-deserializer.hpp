@@ -9,6 +9,7 @@
 #include "enemy.hpp"
 #include "dot.hpp"
 #include "covered-cube.hpp"
+#include "lighting.hpp"
 
 namespace our {
 
@@ -34,6 +35,11 @@ namespace our {
             component = entity->addComponent<CoveredCubeComponent>();
         }else if (type == DotComponent::getID()) {
             component = entity->addComponent<DotComponent>();
+        }
+        else if(type==LightingComponent::getID()){
+            component=entity->addComponent<LightingComponent>();
+//            std::cout<<("a7a")<<std::endl;
+
         }
         if(component) component->deserialize(data);
     }

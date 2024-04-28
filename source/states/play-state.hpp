@@ -31,7 +31,10 @@ class Playstate: public our::State {
         }
         // If we have a world in the scene config, we use it to populate our world
         if(config.contains("world")){
+            std::cout<<("a7a1/3")<<std::endl;
             world.deserialize(config["world"]);
+            std::cout<<("a7a2")<<std::endl;
+
         }
         // We initialize the camera controller system since it needs a pointer to the app
         cameraController.enter(getApp());
@@ -40,6 +43,8 @@ class Playstate: public our::State {
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+        std::cout<<("a7a 3")<<std::endl;
+
     }
 
     void onDraw(double deltaTime) override {

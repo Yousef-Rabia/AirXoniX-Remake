@@ -1,3 +1,4 @@
+#include <iostream>
 #include "world.hpp"
 
 namespace our {
@@ -12,7 +13,6 @@ namespace our {
             Entity* entity = add();
             entity->parent = parent;
             entity->deserialize(entityData);
-            
             if(entityData.contains("children")){
                 //TODO: (Req 8) Recursively call this world's "deserialize" using the children data
                 // and the current entity as the parent
@@ -20,6 +20,7 @@ namespace our {
                 
             }
         }
+        std::cout<<("a7a1")<<std::endl;
     }
 
 }
