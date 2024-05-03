@@ -187,8 +187,8 @@
           "sampler": "default"
         },
         "wood":{
-          "type": "textured",
-          "shader": "textured",
+          "type": "lighted",
+          "shader": "lighting",
           "pipelineState": {
             "faceCulling":{
               "enabled": false
@@ -199,7 +199,12 @@
           },
           "tint": [0.7, 0.7, 0.7, 1],
           "texture": "wood",
-          "sampler": "default"
+          "sampler": "default",
+          "albedo": "wood",
+          "specular": "black",
+          "roughness": "roughness",
+          "emissive": "black",
+          "ambient_occlusion": "wood"
         },
         "spot_lamp": {
           "type": "lighted",
@@ -15620,60 +15625,60 @@
             "enemyType": "Mine"
           }
         ]
-      }
+      },
 
       //////////////////////////////////////////////
-//      {
-//        "name": "spot_lamp",
-//        "scale": [
-//          0.008,
-//          0.008,
-//          0.008
-//        ],
-//        "position": [
-//          -25,
-//          0,
-//          0
-//        ],
-//        "components": [
-//          {
-//            "type": "Mesh Renderer",
-//            "mesh": "spot_lamp",
-//            "material": "spot_lamp"
-//          },
-//          {
-//            "type": "Lighting",
-//            "kind": 0,
-//            "direction": [
-//              100,
-//              0,
-//              0
-//            ],
-//            "position": [
-//              -400,
-//              1100,
-//              0
-//            ],
-//            "diffuse": [
-//              0.253725,
-//              0.2811764,
-//              0.294117647
-//            ],
-//            "specular": [
-//              0.53725,
-//              0.811764,
-//              0.94117647
-//            ],
-//            "attenuation": [
-//              0.00095,
-//              0.00095,
-//              0.000095
-//            ],
-//            "cone_angles.inner": 20,
-//            "cone_angles.outer": 50
-//          }
-//        ]
-//      }
+      {
+        "name": "spot_lamp",
+        "scale": [
+          0.008,
+          0.008,
+          0.008
+        ],
+        "position": [
+          -25,
+          0,
+          0
+        ],
+        "components": [
+          {
+            "type": "Mesh Renderer",
+            "mesh": "spot_lamp",
+            "material": "spot_lamp"
+          },
+          {
+            "type": "Lighting",
+            "kind": 0,
+            "direction": [
+              100,
+              0,
+              0
+            ],
+            "position": [
+              -400,
+              1100,
+              0
+            ],
+            "diffuse": [
+              0.253725,
+              0.2811764,
+              0.294117647
+            ],
+            "specular": [
+              0.53725,
+              0.811764,
+              0.94117647
+            ],
+            "attenuation": [
+              0.00095,
+              0.00095,
+              0.000095
+            ],
+            "cone_angles.inner": 20,
+            "cone_angles.outer": 50
+          }
+        ]
+      }
     ]
   }
 }
