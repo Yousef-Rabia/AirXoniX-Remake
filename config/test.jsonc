@@ -25,7 +25,8 @@
         }
       },
       "textures":{
-        "moon": "assets/textures/moon.jpg",
+        "ball": "assets/textures/ball.jpg",
+        "mine": "assets/textures/mine.png",
         "arena": "assets/textures/ground2.png",
         "wood": "assets/textures/wood-magenta.jpg",
         "glass": "assets/textures/glass-panels.png",
@@ -141,7 +142,7 @@
           "tint": [0.0, 0.8, 1, 1],
           "sampler": "default"
         },
-        "moon":{
+        "ball":{
           "type": "textured",
           "shader": "textured",
           "pipelineState": {
@@ -153,9 +154,24 @@
             }
           },
           "tint": [1, 1, 1, 1],
-          "texture": "moon",
+          "texture": "ball",
           "sampler": "default"
         },
+		  "mine":{
+			  "type": "textured",
+			  "shader": "textured",
+			  "pipelineState": {
+				  "faceCulling":{
+					  "enabled": false
+				  },
+				  "depthTesting":{
+					  "enabled": true
+				  }
+			  },
+			  "tint": [1, 0.25, 0.25, 1],
+			  "texture": "mine",
+			  "sampler": "default"
+		  },
         "wood":{
           "type": "textured",
           "shader": "textured",
@@ -15515,12 +15531,12 @@
           {
             "type": "Mesh Renderer",
             "mesh": "sphere",
-            "material": "moon"
+            "material": "ball"
           },
           {
             "type": "Movement",
             "linearVelocity": [5, 0, 8],
-            "angularVelocity": [0, 0, 0]
+            "angularVelocity": [0, 1000, 0]
           },
           {
             "type": "Enemy"
@@ -15534,18 +15550,38 @@
           {
             "type": "Mesh Renderer",
             "mesh": "sphere",
-            "material": "moon"
+            "material": "ball"
           },
           {
             "type": "Movement",
-            "linearVelocity": [9, 0, 7],
-            "angularVelocity": [0, 0, 0]
+            "linearVelocity": [3, 0, 2],
+            "angularVelocity": [0, 1000, 0]
           },
           {
             "type": "Enemy"
           }
         ]
-      }
+      },
+		{
+			"position": [0, 1, -19],
+			"scale": [1, 1, 1],
+			"components": [
+				{
+					"type": "Mesh Renderer",
+					"mesh": "sphere",
+					"material": "mine"
+				},
+				{
+					"type": "Movement",
+					"linearVelocity": [3, 0, 4],
+					"angularVelocity": [0, 1000, 0]
+				},
+				{
+					"type": "Enemy",
+					"enemyType": "Mine"
+				}
+			]
+		}
     ]
   }
 }
