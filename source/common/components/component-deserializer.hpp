@@ -38,8 +38,6 @@ namespace our {
         }
         else if(type==LightingComponent::getID()){
             component=entity->addComponent<LightingComponent>();
-//            std::cout<<("a7a")<<std::endl;
-
         }
         if(component) component->deserialize(data);
     }
