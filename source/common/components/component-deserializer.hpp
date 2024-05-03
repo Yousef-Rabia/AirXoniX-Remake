@@ -35,6 +35,9 @@ namespace our {
         }else if (type == DotComponent::getID()) {
             component = entity->addComponent<DotComponent>();
         }
+        else if(type==LightingComponent::getID()){
+            component=entity->addComponent<LightingComponent>();
+        }
         if(component) component->deserialize(data);
     }
 
