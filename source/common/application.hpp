@@ -17,6 +17,17 @@
 #define ARENA_LENGTH 19
 #define INITIAL_PLAYER_POSITION glm::vec3(0, 2, 19)
 #define INITIAL_CAMERA_POSITION glm::vec3(0, 18, 25)
+#define INITIAL_MINE_POSITION glm::vec3(0, 1, -19)
+#define AUTO_MOVEMENT_SPEED 20
+#define INITIAL_LIVES 5
+#define FINISH_PERCENTAGE 90
+
+// collision hit-boxes
+#define ENEMY_ENEMY_HITBOX 5
+#define ENEMY_PLAYER_HITBOX 1
+#define ENEMY_LINE_HITBOX 2.5
+#define BALL_CUBE_HITBOX 3
+#define MINE_CUBE_HITBOX 1.2
 
 namespace our {
 
@@ -76,6 +87,10 @@ namespace our {
         virtual void setupCallbacks();                              // Sets-up the window callback functions from GLFW to our (Mouse/Keyboard) classes.
 
     public:
+        // Game variables
+        bool paused = false; // pauses the entire game
+        int coveredArea = 0; // when it reaches 100% you win the game
+        int lives = INITIAL_LIVES; // when they reach zero you lose
 
         // Create an application with following configuration
         Application(const nlohmann::json& app_config) : app_config(app_config) {}
@@ -84,6 +99,11 @@ namespace our {
 
         // This is the main class function that run the whole application (Initialize, Game loop, House cleaning).
         int run(int run_for_frames = 0);
+
+        // Functions to show gui elements after certain events
+        void status(ImFont *pFont) const;
+        void win(ImFont *pFont);
+        void lose(ImFont *pFont);
 
         // Register a state for use by the application
         // The state is uniquely identified by its name

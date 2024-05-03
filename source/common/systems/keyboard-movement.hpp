@@ -3,7 +3,6 @@
 #include "../ecs/world.hpp"
 #include "../components/keyboard-movement.hpp"
 #include "../systems/area-coverage.hpp"
-
 #include "../application.hpp"
 
 #include <glm/glm.hpp>
@@ -26,7 +25,7 @@ namespace our
 
         // This should be called every frame to update all entities
         void update(World *world, float deltaTime, AreaCoverageSystem *areaCoverageSystem) {
-            // First of all, we search for an entity containing both a KeyboardMovementComponent
+            // We search for an entity containing both a KeyboardMovementComponent
             // As soon as we find one, we break
             KeyboardMovementComponent *move = nullptr;
             for(auto entity : world->getEntities()){
@@ -51,35 +50,34 @@ namespace our
             glm::vec3& cameraPosition = cameraEntity->localTransform.position;
             auto playerMovement = player->getComponent<MovementComponent>();
             auto cameraMovement = cameraEntity->getComponent<MovementComponent>();
-
             // determine whether the player is moving on their own or automatic (while building blocks)
             if(areaCoverageSystem->isBuilding())
             {
-                if(app->getKeyboard().isPressed(GLFW_KEY_W))
+                if(app->getKeyboard().isPressed(GLFW_KEY_W) || app->getKeyboard().justReleased(GLFW_KEY_W))
                 {
-                    if(playerMovement->linearVelocity != glm::vec3{0, 0, 10}){
-                        playerMovement->linearVelocity = glm::vec3{0, 0, -10};
-                        cameraMovement->linearVelocity = glm::vec3{0, 0, -5};
+                    if(playerMovement->linearVelocity != glm::vec3{0, 0, AUTO_MOVEMENT_SPEED}){
+                        playerMovement->linearVelocity = glm::vec3{0, 0, -AUTO_MOVEMENT_SPEED};
+                        cameraMovement->linearVelocity = glm::vec3{0, 0, -0.5 * AUTO_MOVEMENT_SPEED};
                     }
                 }
-                else if(app->getKeyboard().isPressed(GLFW_KEY_S))
+                else if(app->getKeyboard().isPressed(GLFW_KEY_S) || app->getKeyboard().justReleased(GLFW_KEY_S))
                 {
-                    if(playerMovement->linearVelocity != glm::vec3{0, 0, -10}){
-                        playerMovement->linearVelocity = glm::vec3{0, 0, 10};
-                        cameraMovement->linearVelocity = glm::vec3{0, 0, 5};
+                    if(playerMovement->linearVelocity != glm::vec3{0, 0, -AUTO_MOVEMENT_SPEED}){
+                        playerMovement->linearVelocity = glm::vec3{0, 0, AUTO_MOVEMENT_SPEED};
+                        cameraMovement->linearVelocity = glm::vec3{0, 0, 0.5 * AUTO_MOVEMENT_SPEED};
                     }
                 }
-                else if(app->getKeyboard().isPressed(GLFW_KEY_A))
+                else if(app->getKeyboard().isPressed(GLFW_KEY_A) || app->getKeyboard().justReleased(GLFW_KEY_A))
                 {
-                    if(playerMovement->linearVelocity != glm::vec3{10, 0, 0}){
-                        playerMovement->linearVelocity = glm::vec3{-10, 0, 0};
-                        cameraMovement->linearVelocity = glm::vec3{-5, 0, 0};                    }
+                    if(playerMovement->linearVelocity != glm::vec3{AUTO_MOVEMENT_SPEED, 0, 0}){
+                        playerMovement->linearVelocity = glm::vec3{-AUTO_MOVEMENT_SPEED, 0, 0};
+                        cameraMovement->linearVelocity = glm::vec3{-0.5 * AUTO_MOVEMENT_SPEED, 0, 0};                    }
                 }
-                else if(app->getKeyboard().isPressed(GLFW_KEY_D))
+                else if(app->getKeyboard().isPressed(GLFW_KEY_D) || app->getKeyboard().justReleased(GLFW_KEY_D))
                 {
-                    if(playerMovement->linearVelocity != glm::vec3{-10, 0, 0}){
-                        playerMovement->linearVelocity = glm::vec3{10, 0, 0};
-                        cameraMovement->linearVelocity = glm::vec3{5, 0, 0};                    }
+                    if(playerMovement->linearVelocity != glm::vec3{-AUTO_MOVEMENT_SPEED, 0, 0}){
+                        playerMovement->linearVelocity = glm::vec3{AUTO_MOVEMENT_SPEED, 0, 0};
+                        cameraMovement->linearVelocity = glm::vec3{0.5 * AUTO_MOVEMENT_SPEED, 0, 0};                    }
                 }
             }
             else{

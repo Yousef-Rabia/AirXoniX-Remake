@@ -17,6 +17,8 @@
 #include <imgui_impl/imgui_impl_glfw.h>
 #include <imgui_impl/imgui_impl_opengl3.h>
 
+#include "../states/play-state.hpp"
+
 #if !defined(NDEBUG)
 // If NDEBUG (no debug) is not defined, enable OpenGL debug messages
 #define ENABLE_OPENGL_DEBUG_MESSAGES
@@ -205,6 +207,8 @@ int our::Application::run(int run_for_frames) {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     ImGui::StyleColorsDark();
+    ImFont *mainFont = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Atop-R99O3.ttf", 50.0f);
+    ImFont *largeMainFont = io.Fonts->AddFontFromFileTTF("assets\\fonts\\Atop-R99O3.ttf", 130.0f);
 
     // Initialize ImGui for GLFW and OpenGL
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -254,7 +258,42 @@ int our::Application::run(int run_for_frames) {
         if(currentState) currentState->onImmediateGui(); // Call to run any required Immediate GUI.
 
         if(currentState == states["play"]){
+            ImGui::SetNextWindowSize(ImVec2(app_config["window"]["size"]["width"].get<int>(), app_config["window"]["size"]["height"].get<int>()));
+            // start window GUI
+            ImGui::Begin(" ", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar);            // set the position of the game
+            ImGui::SetWindowPos(" ", ImVec2(0, 0));
 
+            // hide the imgui window
+            ImGuiStyle *style = &ImGui::GetStyle();
+            ImVec4 *colors = style->Colors;
+            colors[ImGuiCol_WindowBg] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+            colors[ImGuiCol_Border] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+            colors[ImGuiCol_ResizeGrip] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+            colors[ImGuiCol_ResizeGripActive] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+            colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+            colors[ImGuiCol_TitleBg] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+            colors[ImGuiCol_TitleBgActive] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+            colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+
+            // print the status of the game
+            status(mainFont);
+
+            // Game Logic
+            if(lives <= 0)
+            {
+                lose(largeMainFont);
+                paused = true;
+            }
+
+
+            if(coveredArea >= 100)
+            {
+                win(largeMainFont);
+                paused = true;
+            }
+
+            // end the GUI
+            ImGui::End();
         }
 
         // If ImGui is using the mouse or keyboard, then we don't want the captured events to affect our keyboard and mouse objects.
@@ -348,6 +387,57 @@ int our::Application::run(int run_for_frames) {
     // And finally terminate GLFW
     glfwTerminate();
     return 0; // Goodbye
+}
+
+void our::Application::status(ImFont *font) const {
+    // Set the style for text
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // Orange text color
+    ImGui::PushFont(font);
+
+    // show the area currently covered by the player
+    ImGui::SetCursorPosX(10);
+    ImGui::SetCursorPosY(10);
+    std::string areaString = "Area Covered: " + std::to_string(coveredArea) + "%";
+    ImGui::Text("%s", areaString.c_str());
+
+    // show the number of lives
+    ImGui::SetCursorPosX(1090);
+    ImGui::SetCursorPosY(10);
+    std::string livesString = "Lives: " + std::to_string(lives);
+    ImGui::Text("%s", livesString.c_str());
+
+    // Pop the style changes
+    ImGui::PopFont();
+    ImGui::PopStyleColor();
+
+}
+
+void our::Application::win(ImFont *font) {
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // Orange text color
+    ImGui::PushFont(font);
+
+    ImGui::SetCursorPosX(400);
+    ImGui::SetCursorPosY(50);
+    std::string String = "YOU WIN!";
+    ImGui::Text("%s", String.c_str());
+
+    // Pop the style changes
+    ImGui::PopFont();
+    ImGui::PopStyleColor();
+}
+
+void our::Application::lose(ImFont *font) {
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.5f, 0.0f, 1.0f)); // Orange text color
+    ImGui::PushFont(font);
+
+    ImGui::SetCursorPosX(350);
+    ImGui::SetCursorPosY(50);
+    std::string String = "GAME OVER";
+    ImGui::Text("%s", String.c_str());
+
+    // Pop the style changes
+    ImGui::PopFont();
+    ImGui::PopStyleColor();
 }
 
 // Sets-up the window callback functions from GLFW to our (Mouse/Keyboard) classes.
