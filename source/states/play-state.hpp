@@ -33,23 +33,37 @@ class Playstate: public our::State {
         if(config.contains("world")){
             world.deserialize(config["world"]);
         }
-        // We initialize the camera controller system since it needs a pointer to the app
+        // We initialize systems that need a pointer to the app
         cameraController.enter(getApp());
         keyboardMovementSystem.enter(getApp());
+        areaCoverageSystem.enter(getApp());
         // areaCoverageSystem.dieReset();
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
         renderer.initialize(size, config["renderer"]);
+
+        // game variables
+        getApp()->paused = false;
+        getApp()->lives = INITIAL_LIVES;
+        getApp()->coveredArea = 0;
     }
 
     void onDraw(double deltaTime) override {
-        // Here, we just run a bunch of systems to control the world logic
+        if(!getApp()->paused)
+        {
+            // Here, we just run a bunch of systems to control the world logic
+            cameraController.update(&world, (float)deltaTime);
+            areaCoverageSystem.update(&world);
+            keyboardMovementSystem.update(&world, (float)deltaTime, &areaCoverageSystem);
+            world.deleteMarkedEntities();
+
+            // Some gameplay logic
+            getApp()->coveredArea = (int)(areaCoverageSystem.calcCoveredPercentage() / FINISH_PERCENTAGE * 100);
+        }
+
+        // Here, we just run a bunch of other systems, these aren't paused on game stop
         movementSystem.update(&world, (float)deltaTime);
-        cameraController.update(&world, (float)deltaTime);
-        areaCoverageSystem.update(&world);
-        keyboardMovementSystem.update(&world, (float)deltaTime, &areaCoverageSystem);
         collisionSystem.update(&world, &areaCoverageSystem);
-        world.deleteMarkedEntities();
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
@@ -60,6 +74,7 @@ class Playstate: public our::State {
         if(keyboard.justPressed(GLFW_KEY_ESCAPE)){
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
+            getApp()->paused = false;
         }
     }
 

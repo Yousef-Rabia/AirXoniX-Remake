@@ -22,6 +22,8 @@ namespace our {
 
     // The collision system is responsible for the effect of any two entities colliding.
     class AreaCoverageSystem {
+        Application* app; // The application in which the state runs
+
     public:
         /*
          * =================================CONSTANTS=================================
@@ -70,6 +72,11 @@ namespace our {
 
         // Flag to check if there exits at least 2 in the grid (for the DFS)
         bool found2 = false;
+
+        // When a state enters, it should call this function and give it the pointer to the application
+        void enter(Application* app){
+            this->app = app;
+        }
 
         AreaCoverageSystem() {
             // Initialize the grid and cubes list
@@ -240,7 +247,7 @@ namespace our {
             }
         }
 
-        void dieReset(){
+        void dieReset(World* world){
             for(int i = curDot-1; i>=0;  i--){
                 int x = glm::round(dots[i]->localTransform.position.x + 19.5);
                 int z = glm::round(dots[i]->localTransform.position.z + 19.5);
@@ -258,6 +265,13 @@ namespace our {
             prevPos = RESET_STARTPOS;
             point1 = RESET_STARTPOS;
             point2 = RESET_STARTPOS;
+            app->lives -= 1;
+
+            // when the player dies end their and the camera's speed (for when they die while building)
+            for(auto entity : world->getEntities()){
+                if(entity->getComponent<CameraComponent>() || entity->getComponent<KeyboardMovementComponent>())
+                    entity->getComponent<MovementComponent>()->linearVelocity = {0, 0, 0};
+            }
         }
 
         void fillCubesList(World *world) {
@@ -384,9 +398,8 @@ namespace our {
                         tot++;
                 }
             }
-            tot-=  (40*4 + 38 * 4);
+            tot -=  (38 * 4 + 38 * 4);
             float percentage = tot/(1288.0) * 100.0;
-            std::cout<<"Covered Percentage: "<<percentage <<"%, #Cells: "<<tot<<"\n";
             return percentage;
         }
 
