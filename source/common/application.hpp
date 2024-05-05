@@ -15,9 +15,9 @@
 
 // constants
 #define ARENA_LENGTH 19
-#define INITIAL_PLAYER_POSITION glm::vec3(0, 2, 19)
+#define INITIAL_PLAYER_POSITION glm::vec3(0, 3, 19)
 #define INITIAL_CAMERA_POSITION glm::vec3(0, 18, 25)
-#define INITIAL_MINE_POSITION glm::vec3(0, 1, -19)
+#define INITIAL_MINE_POSITION glm::vec3(0, 1.5, -19)
 #define AUTO_MOVEMENT_SPEED 20
 #define INITIAL_LIVES 5
 #define FINISH_PERCENTAGE 90
@@ -27,7 +27,7 @@
 #define ENEMY_PLAYER_HITBOX 1
 #define ENEMY_LINE_HITBOX 2.5
 #define BALL_CUBE_HITBOX 3
-#define MINE_CUBE_HITBOX 1.2
+#define MINE_CUBE_HITBOX 1
 
 namespace our {
 

@@ -142,19 +142,19 @@ namespace our
                         // Mine enemy collision with the walls
                         if(enemy->enemyType == "Mine"){
                             // Collision with the outer borders
-                            if(entityPosition.x > (ARENA_LENGTH+1)){
+                            if(entityPosition.x > (ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.x = -abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
                             }
-                            if(entityPosition.x < -(ARENA_LENGTH+1)){
+                            if(entityPosition.x < -(ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.x = abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
                             }
-                            if(entityPosition.z > (ARENA_LENGTH+1)){
+                            if(entityPosition.z > (ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.z = -abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
                             }
-                            if(entityPosition.z < -(ARENA_LENGTH+1)){
+                            if(entityPosition.z < -(ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.z = abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
                             }

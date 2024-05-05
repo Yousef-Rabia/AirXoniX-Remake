@@ -13,7 +13,7 @@ namespace our {
         glm::vec3 scale = glm::vec3(1, 1, 1); // The scale is defined as a vec3. (1,1,1) means no scaling.
 
         // This function computes and returns a matrix that represents this transform
-        glm::mat4 toMat4() const;
+        glm::mat4 toMat4(glm::mat4 selfRotation = glm::mat4(1.0)) const;
          // Deserializes the entity data and components from a json object
         void deserialize(const nlohmann::json&);
     };

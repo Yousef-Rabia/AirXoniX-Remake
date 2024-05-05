@@ -25,14 +25,15 @@
         }
       },
       "textures":{
-        "ball": "assets/textures/ball.jpg",
+        "ball": "assets/textures/mine.png",
         "mine": "assets/textures/mine.png",
         "arena": "assets/textures/ground2.png",
         "wood": "assets/textures/wood-magenta.jpg",
         "glass": "assets/textures/glass-panels.png",
         "monkey": "assets/textures/monkey.png",
-		"ground": "assets/textures/ground.png",
-		"ground2": "assets/textures/ground2.png"
+		"ground": "assets/textures/ground1.png",
+		"ground2": "assets/textures/ground2.png",
+		"player": "assets/textures/player.png"
 	  },
       "meshes":{
         "cube": "assets/models/cube.obj",
@@ -98,7 +99,7 @@
           "texture": "arena",
           "sampler": "default"
         },
-				"ground":{
+		  "ground":{
           "type": "textured",
           "shader": "textured",
           "pipelineState": {
@@ -113,7 +114,7 @@
           "texture": "ground",
           "sampler": "default"
         },
-				"ground2":{
+		  "ground2":{
           "type": "textured",
           "shader": "textured",
           "pipelineState": {
@@ -129,8 +130,8 @@
           "sampler": "default"
         },
         "player":{
-          "type": "tinted",
-          "shader": "tinted",
+          "type": "textured",
+          "shader": "textured",
           "pipelineState": {
             "faceCulling":{
               "enabled": false
@@ -139,8 +140,9 @@
               "enabled": true
             }
           },
-          "tint": [0.0, 0.8, 1, 1],
-          "sampler": "default"
+          "tint": [1, 1, 1, 1],
+          "sampler": "default",
+			"texture": "player"
         },
         "ball":{
           "type": "textured",
@@ -153,7 +155,7 @@
               "enabled": true
             }
           },
-          "tint": [1, 1, 1, 1],
+          "tint": [0.25, 0.25, 1, 1],
           "texture": "ball",
           "sampler": "default"
         },
@@ -203,7 +205,7 @@
         ]
       },
       {
-        "position": [0, 2, 19],
+        "position": [0, 3, 19],
         "components": [
           {
             "type": "Mesh Renderer",
@@ -15563,7 +15565,7 @@
         ]
       },
 		{
-			"position": [0, 1, -19],
+			"position": [0, 1.5, -19],
 			"scale": [1, 1, 1],
 			"components": [
 				{

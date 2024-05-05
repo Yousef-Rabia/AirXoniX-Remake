@@ -55,15 +55,13 @@ class Playstate: public our::State {
             cameraController.update(&world, (float)deltaTime);
             areaCoverageSystem.update(&world);
             keyboardMovementSystem.update(&world, (float)deltaTime, &areaCoverageSystem);
+            movementSystem.update(&world, (float)deltaTime);
+            collisionSystem.update(&world, &areaCoverageSystem);
             world.deleteMarkedEntities();
 
             // Some gameplay logic
             getApp()->coveredArea = (int)(areaCoverageSystem.calcCoveredPercentage() / FINISH_PERCENTAGE * 100);
         }
-
-        // Here, we just run a bunch of other systems, these aren't paused on game stop
-        movementSystem.update(&world, (float)deltaTime);
-        collisionSystem.update(&world, &areaCoverageSystem);
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
