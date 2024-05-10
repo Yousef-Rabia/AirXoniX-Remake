@@ -2,7 +2,7 @@
   "start-scene": "menu",
   "window":
   {
-    "title":"Default Game Window",
+    "title":"AIR",
     "size":{
       "width":1280,
       "height":720
@@ -15651,9 +15651,9 @@
           0.008
         ],
         "position": [
-          0,
-          1,
-          0
+          -60,
+          20,
+          60
         ],
         "components": [
           {
@@ -15665,9 +15665,9 @@
             "type": "Lighting",
             "kind": 1,
             "direction": [
-              100,
-              0,
-              0
+              60,
+              -10,
+              -60
             ],
             "position": [
               -400,
@@ -15675,19 +15675,19 @@
               0
             ],
             "diffuse": [
-              0.253725,
-              0.2811764,
-              0.294117647
+              0.5,
+              0.5,
+             0.5
             ],
             "specular": [
-              0.53725,
-              0.811764,
-              0.94117647
+              1,
+              1,
+              1
             ],
             "attenuation": [
-              0.00095,
-              0.00095,
-              0.000095
+              0.000055,
+              0.000055,
+              0.0000095
             ],
             "cone_angles.inner": 20,
             "cone_angles.outer": 50

@@ -239,7 +239,6 @@ namespace our {
                     switch (Lights[i]->kind)
                     {
                         case 0:
-
                             light_material->shader->set("lights["+std::to_string(i)+"].direction", light_direction);
                             break;
                         case 1:
