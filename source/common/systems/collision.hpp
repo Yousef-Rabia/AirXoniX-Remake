@@ -9,7 +9,6 @@
 #include "components/dot.hpp"
 #include "../systems/area-coverage.hpp"
 
-
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
@@ -18,9 +17,9 @@
 
 namespace our
 {
-
     // The collision system is responsible for the effect of any two entities colliding.
     class CollisionSystem {
+        Application* app; // The application in which the state runs
 
     public:
         const glm::vec3 RESET_DOT = glm::vec3(10, -3.05 ,15);
@@ -32,8 +31,14 @@ namespace our
         std::unordered_map<Entity*, Entity*> nearestCube;
         std::unordered_map<Entity*, Entity*> latestCube;
 
+        // When a state enters, it should call this function and give it the pointer to the application
+        void enter(Application* app){
+            this->app = app;
+        }
+
         // This should be called every frame to update all entities containing a MovementComponent.
         void update(World* world, AreaCoverageSystem *areaCoverageSystem) {
+
             // get the player (later used for collision calculations)
             KeyboardMovementComponent *move = nullptr;
             for(auto entity : world->getEntities()){
@@ -90,6 +95,9 @@ namespace our
                                         // they could collide with the same cube or its neighbours twice in a row
                                         latestCube[entity] = nullptr;
                                         latestCube[otherEnemyEntity] = nullptr;
+
+                                        // play the sound
+                                        app->soundPlayer.playSound("ball_selfCollide");
                                     }
                                 }
                             }
@@ -113,6 +121,9 @@ namespace our
                                         cubeCollision = true;
                                         leastDistance = distance;
                                         nearestCube[entity] = cube;
+
+                                        // play the sound
+                                        app->soundPlayer.playSound("ball_reflect");
                                     }
                                 }
                             }
@@ -145,18 +156,22 @@ namespace our
                             if(entityPosition.x > (ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.x = -abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
+                                app->soundPlayer.playSound("mine_reflect");
                             }
                             if(entityPosition.x < -(ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.x = abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
+                                app->soundPlayer.playSound("mine_reflect");
                             }
                             if(entityPosition.z > (ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.z = -abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
+                                app->soundPlayer.playSound("mine_reflect");
                             }
                             if(entityPosition.z < -(ARENA_LENGTH+0.5)){
                                 movement->linearVelocity.z = abs(movement->linearVelocity.x);
                                 latestCube[entity] = nullptr;
+                                app->soundPlayer.playSound("mine_reflect");
                             }
 
                             // Collision with the cubes (the hidden ones)
@@ -198,6 +213,8 @@ namespace our
                                     movement->linearVelocity.z *= -1;
                                 else
                                     movement->linearVelocity *= -1;
+
+                                app->soundPlayer.playSound("mine_reflect");
                             }
                         }
 

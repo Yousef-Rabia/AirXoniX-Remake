@@ -35,7 +35,6 @@ struct Button {
 
 // This state shows how to use some of the abstractions we created to make a menu.
 class Menustate: public our::State {
-
     // A meterial holding the menu shader and the menu texture to draw
     our::TexturedMaterial* menuMaterial;
     // A material to be used to highlight hovered buttons (we will use blending to create a negative effect).
@@ -101,7 +100,12 @@ class Menustate: public our::State {
         // - The body {} which contains the code to be executed. 
         buttons[0].position = {127.0f, 455.0f};
         buttons[0].size = {400.0f, 150.0f};
-        buttons[0].action = [this](){this->getApp()->changeState("play");};
+        buttons[0].action = [this](){
+            this->getApp()->changeState("play");
+            // stop menu music and play the background music
+            getApp()->soundPlayer.stopAllSounds();
+            getApp()->soundPlayer.loopSound("background");
+        };
 
         buttons[1].position = {750.0f, 455.0f};
         buttons[1].size = {400.0f, 150.0f};
@@ -109,12 +113,16 @@ class Menustate: public our::State {
     }
 
     void onDraw(double deltaTime) override {
+
         // Get a reference to the keyboard object
         auto& keyboard = getApp()->getKeyboard();
 
         if(keyboard.justPressed(GLFW_KEY_SPACE)){
             // If the space key is pressed in this frame, go to the play state
             getApp()->changeState("play");
+            // stop menu music and play the background music
+            getApp()->soundPlayer.stopAllSounds();
+            getApp()->soundPlayer.loopSound("background");
         } else if(keyboard.justPressed(GLFW_KEY_ESCAPE)) {
             // If the escape key is pressed in this frame, exit the game
             getApp()->close();
@@ -166,7 +174,6 @@ class Menustate: public our::State {
                 rectangle->draw();
             }
         }
-        
     }
 
     void onDestroy() override {
