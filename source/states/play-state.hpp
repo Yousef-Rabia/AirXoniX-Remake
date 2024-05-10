@@ -32,6 +32,7 @@ class Playstate: public our::State {
         // If we have a world in the scene config, we use it to populate our world
         if(config.contains("world")){
             world.deserialize(config["world"]);
+
         }
         // We initialize systems that need a pointer to the app
         cameraController.enter(getApp());
