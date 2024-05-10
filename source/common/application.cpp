@@ -237,6 +237,8 @@ int our::Application::run(int run_for_frames) {
         nextState = nullptr;
     }
     // Call onInitialize if the scene needs to do some custom initialization (such as file loading, object creation, etc).
+    std::cout<<("a7a 3/1")<<std::endl;
+
     if(currentState) currentState->onInitialize();
 
     // The time at which the last frame started. But there was no frames yet, so we'll just pick the current time.
@@ -363,6 +365,8 @@ int our::Application::run(int run_for_frames) {
             currentState = nextState;
             nextState = nullptr;
             // Initialize the new scene
+            std::cout<<("a7a 3/2")<<std::endl;
+
             currentState->onInitialize();
         }
 
@@ -393,7 +397,8 @@ void our::Application::status(ImFont *font) const {
     // show the area currently covered by the player
     ImGui::SetCursorPosX(10);
     ImGui::SetCursorPosY(10);
-    std::string areaString = "Area Covered: " + std::to_string(coveredArea) + "%";
+    int cappedArea = std::min(coveredArea, 100);
+    std::string areaString = "Area Covered: " + std::to_string(cappedArea) + "%";
     ImGui::Text("%s", areaString.c_str());
 
     // show the number of lives
