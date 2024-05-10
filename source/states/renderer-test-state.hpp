@@ -23,7 +23,6 @@ class RendererTestState: public our::State {
 
         // If we have a world in the scene config, we use it to populate our world
         if(config.contains("world")){
-            std::cout<<("a7a1/4")<<std::endl;
             world.deserialize(config["world"]);
         }
 

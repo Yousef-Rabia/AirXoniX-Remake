@@ -31,9 +31,7 @@ class Playstate: public our::State {
         }
         // If we have a world in the scene config, we use it to populate our world
         if(config.contains("world")){
-            std::cout<<("a7a1/3")<<std::endl;
             world.deserialize(config["world"]);
-            std::cout<<("a7a2")<<std::endl;
 
         }
         // We initialize systems that need a pointer to the app

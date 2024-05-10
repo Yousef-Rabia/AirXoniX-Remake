@@ -53,7 +53,7 @@ void main(){
     vec3 material_diffuse = texture(material.albedo, fs_in.tex_coord).rgb;
     vec3 material_specular = texture(material.specular, fs_in.tex_coord).rgb;
     vec3 material_ambient = material_diffuse * texture(material.ambient_occlusion, fs_in.tex_coord).r;
-    
+
     float material_roughness = texture(material.roughness, fs_in.tex_coord).r;
     float material_shininess = 2.0 / pow(clamp(material_roughness, 0.001, 0.999), 4.0) - 2.0;
 
@@ -66,7 +66,7 @@ void main(){
     frag_color = vec4(material_emissive + material_ambient * sky_light, 1.0);
 
     int clamped_light_count = min(MAX_LIGHTS, light_count);
-    
+
     for(int i = 0; i < clamped_light_count; i++){
         Light light = lights[i];
 
@@ -74,11 +74,11 @@ void main(){
         if(light.type != DIRECTIONAL){
             direction_to_light = normalize(light.position - fs_in.world);
         }
-        
+
         vec3 diffuse = light.diffuse * material_diffuse * max(0, dot(normal, direction_to_light));
-        
+
         vec3 reflected = reflect(-direction_to_light, normal);
-        
+
         vec3 specular = light.specular * material_specular * pow(max(0, dot(view, reflected)), material_shininess);
 
         float attenuation = 1;

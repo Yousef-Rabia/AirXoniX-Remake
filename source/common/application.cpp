@@ -237,7 +237,6 @@ int our::Application::run(int run_for_frames) {
         nextState = nullptr;
     }
     // Call onInitialize if the scene needs to do some custom initialization (such as file loading, object creation, etc).
-    std::cout<<("a7a 3/1")<<std::endl;
 
     if(currentState) currentState->onInitialize();
 
@@ -365,8 +364,6 @@ int our::Application::run(int run_for_frames) {
             currentState = nextState;
             nextState = nullptr;
             // Initialize the new scene
-            std::cout<<("a7a 3/2")<<std::endl;
-
             currentState->onInitialize();
         }
 

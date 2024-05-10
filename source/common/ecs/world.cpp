@@ -20,7 +20,6 @@ namespace our {
                 
             }
         }
-        std::cout<<("a7a1")<<std::endl;
     }
 
 }
