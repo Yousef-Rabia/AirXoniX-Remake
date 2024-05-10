@@ -12,6 +12,7 @@
 
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
+#include "sound/sound.hpp"
 
 // constants
 #define ARENA_LENGTH 19
@@ -91,6 +92,7 @@ namespace our {
         bool paused = false; // pauses the entire game
         int coveredArea = 0; // when it reaches 100% you win the game
         int lives = INITIAL_LIVES; // when they reach zero you lose
+        Sound soundPlayer;
 
         // Create an application with following configuration
         Application(const nlohmann::json& app_config) : app_config(app_config) {}

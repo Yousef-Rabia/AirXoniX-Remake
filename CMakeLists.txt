@@ -124,6 +124,8 @@ set(STATES_SOURCES
         source/common/systems/area-coverage.hpp
         source/common/components/dot.hpp
         source/common/components/dot.cpp
+        source/common/sound/sound.hpp
+        source/common/sound/sound.cpp
 )
 
 # For each example, we add an executable target

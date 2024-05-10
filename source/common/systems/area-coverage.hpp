@@ -267,6 +267,8 @@ namespace our {
             point2 = RESET_STARTPOS;
             app->lives -= 1;
 
+            app->soundPlayer.playSound("player_deathYell");
+
             // when the player dies end their and the camera's speed (for when they die while building)
             for(auto entity : world->getEntities()){
                 if(entity->getComponent<CameraComponent>() || entity->getComponent<KeyboardMovementComponent>())
