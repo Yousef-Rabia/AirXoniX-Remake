@@ -67,7 +67,7 @@ namespace our {
     // setup of the lightMaterial to create the needed textures based on the type
     void LightingMaterial::setup() const
     {
-        Material::setup();
+        TexturedMaterial::setup();
 
         if (albedo != nullptr)
         {
@@ -129,7 +129,7 @@ namespace our {
     // This function read the material data from a json object
     void LightingMaterial::deserialize(const nlohmann::json &data)
     {
-        Material::deserialize(data);
+        TexturedMaterial::deserialize(data);
         if (!data.is_object()) return;
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
         albedo = AssetLoader<Texture2D>::get(data.value("albedo", ""));

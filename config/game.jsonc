@@ -29,14 +29,13 @@
         }
       },
       "textures":{
+        "player": "assets/textures/player.png",
         "ball": "assets/textures/ball.jpg",
         "mine": "assets/textures/mine.png",
         "arena": "assets/textures/ground2.png",
         "wood": "assets/textures/wood-magenta.jpg",
         "glass": "assets/textures/glass-panels.png",
-        "monkey": "assets/textures/monkey.png",
         "ground": "assets/ground.png",
-        "ground2": "assets/textures/ground2.png",
         "albedo": "assets/images/metal/albedo.jpg",
         "specular": "assets/images/metal/specular.jpg",
         "roughness": "assets/images/metal/roughness.jpg",
@@ -127,21 +126,6 @@
           "texture": "ground",
           "sampler": "default"
         },
-        "ground2":{
-          "type": "textured",
-          "shader": "textured",
-          "pipelineState": {
-            "faceCulling":{
-              "enabled": false
-            },
-            "depthTesting":{
-              "enabled": true
-            }
-          },
-          "tint": [1, 1, 1, 1],
-          "texture": "ground2",
-          "sampler": "default"
-        },
         "player":{
           "type": "lighted",
           "shader": "lighting",
@@ -153,13 +137,14 @@
               "enabled": true
             }
           },
-          "tint": [0.0, 0.8, 1, 1],
+          "tint": [1, 1, 1, 1],
+          "texture": "player",
           "sampler": "default",
-          "albedo": "tinted",
+          "albedo": "player",
           "specular": "black",
           "roughness": "roughness",
           "emissive": "black",
-          "ambient_occlusion": "tinted"
+          "ambient_occlusion": "player"
         },
         "ball":{
           "type": "lighted",
@@ -192,7 +177,7 @@
               "enabled": true
             }
           },
-          "tint": [1, 0.25, 0.25, 1],
+          "tint": [1, 0.1, 0.1, 1],
           "texture": "mine",
           "sampler": "default",
           "albedo": "mine",
@@ -15622,7 +15607,7 @@
         ]
       },
       {
-        "position": [0, 1, -19],
+        "position": [0, 1.5, -19],
         "scale": [1, 1, 1],
         "components": [
           {

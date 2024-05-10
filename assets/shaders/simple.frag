@@ -43,7 +43,7 @@ uniform Light lights[MAX_LIGHTS];
 uniform int light_count;
 uniform Sky sky;
 uniform Material material;
-
+uniform vec4 tint;
 
 
 void main(){
@@ -63,7 +63,7 @@ void main(){
         mix(sky.horizon, sky.top, normal.y * normal.y) :
         mix(sky.horizon, sky.bottom, normal.y * normal.y);
 
-    frag_color = vec4(material_emissive + material_ambient * sky_light, 1.0);
+    frag_color = tint * vec4(material_emissive + material_ambient * sky_light, 1.0);
 
     int clamped_light_count = min(MAX_LIGHTS, light_count);
 
