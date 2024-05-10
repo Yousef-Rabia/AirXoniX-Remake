@@ -154,6 +154,10 @@ namespace our {
                 //if it is not drawn, Draw it, else do NOTHING
                 if (grid[x][z] != 1 ) {
                     // NOT DRAWN
+                    if(endPos != glm::vec2 (x,z) && grid[x][z] == 2) {
+                        dieReset(world);
+                        return;
+                    }
                     if (startPos == RESET_STARTPOS) {
                         // Started moving into uncovered area
                         startPos = glm::vec2(x, z);
