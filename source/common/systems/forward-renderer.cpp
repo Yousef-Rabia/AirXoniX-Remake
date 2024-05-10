@@ -317,25 +317,19 @@ namespace our {
                     switch (Lights[i]->kind)
                     {
                         case 0:
-//                            std::cout<<"******************* hello Directional *******************"<<std::endl;
-                            // light_material->shader->set("lights["+std::to_string(i)+"].direction", glm::normalize(Lights[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(Lights[i]->direction, 0)));
                             light_material->shader->set("lights["+std::to_string(i)+"].direction", light_direction);
                             break;
+                        case 1:
+                            light_material->shader->set("lights["+std::to_string(i)+"].position", light_position);
+                            light_material->shader->set("lights["+std::to_string(i)+"].attenuation", Lights[i]->attenuation);
+                            break;
                         case 2:
-//                            std::cout<<"******************* hello Spot *******************"<<std::endl;
-                            // light_material->shader->set("lights["+std::to_string(i)+"].position", Lights[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(Lights[i]->getOwner()->localTransform.position, 1.0));
-                            // light_material->shader->set("lights["+std::to_string(i)+"].direction", glm::normalize(Lights[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(Lights[i]->direction, 0)));
                             light_material->shader->set("lights["+std::to_string(i)+"].position", light_position);
                             light_material->shader->set("lights["+std::to_string(i)+"].direction", light_direction);
                             light_material->shader->set("lights["+std::to_string(i)+"].cone_angles", Lights[i]->cone_angles);
                             light_material->shader->set("lights["+std::to_string(i)+"].attenuation", Lights[i]->attenuation);
                             break;
-                        case 1:
-                            // light_material->shader->set("lights["+std::to_string(i)+"].position", Lights[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(Lights[i]->getOwner()->localTransform.position, 1.0));
-                            // light_material->shader->set("lights["+std::to_string(i)+"].attenuation", Lights[i]->attenuation);
-                            light_material->shader->set("lights["+std::to_string(i)+"].position", light_position);
-                            light_material->shader->set("lights["+std::to_string(i)+"].attenuation", Lights[i]->attenuation);
-                            break;
+
                     }
                 }
 
