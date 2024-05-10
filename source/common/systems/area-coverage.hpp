@@ -164,9 +164,7 @@ namespace our {
 
                         // calculates direction of first movement
                         startDirection = calcDirection(prevPos, startPos);
-                        std::cout << "start moving in Direction: " << startDirection << " ,X: " << x << " ,Z: " << z << "\n";
                     }
-                    // Draws the cube
 
                     if(grid[x][z] != 2)
                     {
@@ -179,9 +177,9 @@ namespace our {
                         point2 = RESET_STARTPOS;
                     }
 
-                    if(endPos ==RESET_STARTPOS)
+                    if(endPos == RESET_STARTPOS)
                         endPos = prevPos;
-                    if((point1== RESET_STARTPOS || point2== RESET_STARTPOS)){
+                    if((point1 == RESET_STARTPOS || point2 == RESET_STARTPOS)){
                         setPoint1_2(calcDirection(endPos, glm::vec2(x, z)), glm::vec2(x, z));
                     }
                     endPos = glm::vec2(x, z);
@@ -253,6 +251,7 @@ namespace our {
                 dots[i]->localTransform.position = RESET_DOT;
                 curDot=0;
             }
+            app->soundPlayer.playSound("wall_area");
         }
 
         void dieReset(World* world){

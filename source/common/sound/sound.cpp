@@ -25,15 +25,22 @@ void Sound::playSound(const std::string &key)
 
 void Sound::loopSound(const std::string &key)
 {
-    ma_sound_set_looping(sounds[key], true);
-    ma_sound_seek_to_pcm_frame(sounds[key], 0); // Seek to the beginning
-    ma_sound_start(sounds[key]);                // Start playing the sound
+    if(!ma_sound_is_looping(sounds[key]))
+    {
+        ma_sound_set_looping(sounds[key], true);
+        ma_sound_seek_to_pcm_frame(sounds[key], 0); // Seek to the beginning
+        ma_sound_start(sounds[key]);                // Start playing the sound
+    }
 }
 
 void Sound::stopSound(const std::string &key)
 {
     if(ma_sound_is_playing(sounds[key]))
         ma_sound_stop(sounds[key]);
+    if(ma_sound_is_looping(sounds[key]))
+    {
+        ma_sound_set_looping(sounds[key], false);
+    }
 }
 
 void Sound::stopAllSounds()
@@ -42,6 +49,8 @@ void Sound::stopAllSounds()
     {
         if (ma_sound_is_playing(pair.second))
             ma_sound_stop(pair.second); // Stop each sound
+        if(ma_sound_is_looping(pair.second))
+            ma_sound_set_looping(pair.second, false);
     }
 }
 
@@ -71,6 +80,7 @@ void Sound::initSoundLibrary() {
     addSound("mine_reflect", "assets/sound/mine_reflect.wav");
     addSound("ball_selfCollide", "assets/sound/ball_selfCollide.wav");
     addSound("player_drawWall", "assets/sound/player_drawWall.wav");
+    addSound("wall_area", "assets/sound/wall_area.wav");
 
     addSound("player_explode", "assets/sound/player_explode.wav");
     addSound("player_deathYell", "assets/sound/player_deathYell.wav");

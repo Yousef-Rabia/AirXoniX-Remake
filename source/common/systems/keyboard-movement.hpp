@@ -79,6 +79,7 @@ namespace our
                         playerMovement->linearVelocity = glm::vec3{AUTO_MOVEMENT_SPEED, 0, 0};
                         cameraMovement->linearVelocity = glm::vec3{0.5 * AUTO_MOVEMENT_SPEED, 0, 0};                    }
                 }
+                app->soundPlayer.loopSound("player_drawWall");
             }
             else{
                 playerMovement->linearVelocity = glm::vec3{0, 0, 0};
@@ -108,6 +109,8 @@ namespace our
                         cameraPosition.x -= deltaTime * sensitivity.x * 0.5;
                     }
                 }
+
+                app->soundPlayer.stopSound("player_drawWall");
             }
         };
     };
