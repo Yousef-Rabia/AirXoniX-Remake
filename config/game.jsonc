@@ -2,7 +2,8 @@
   "start-scene": "menu",
   "window":
   {
-    "title":"AIR",
+    "title":"AirXonix",
+    "icon": "assets/logo.png",
     "size":{
       "width":1280,
       "height":720

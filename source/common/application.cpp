@@ -138,13 +138,14 @@ void our::Application::configureOpenGL() {
 our::WindowConfiguration our::Application::getWindowConfiguration() {
     auto window_config = app_config["window"];
     std::string title = window_config["title"].get<std::string>();
-    
+    std::string icon = window_config["icon"].get<std::string>();
+
     int width = window_config["size"]["width"].get<int>();
     int height = window_config["size"]["height"].get<int>();
 
     bool isFullScreen = window_config["fullscreen"].get<bool>();
 
-    return {title, {width, height}, isFullScreen};
+    return {title,icon, {width, height}, isFullScreen};
 }
 
 // This is the main class function that run the whole application (Initialize, Game loop, House cleaning).
@@ -169,7 +170,7 @@ int our::Application::run(int run_for_frames) {
     // If it should be fullscreen, monitor should point to one of the monitors (e.g. primary monitor), otherwise it should be null
     GLFWmonitor* monitor = win_config.isFullscreen ? glfwGetPrimaryMonitor() : nullptr;
     // The last parameter "share" can be used to share the resources (OpenGL objects) between multiple windows.
-    window = glfwCreateWindow(win_config.size.x, win_config.size.y, win_config.title.c_str(), monitor, nullptr);
+    window = glfwCreateWindow(win_config.size.x, win_config.size.y, win_config.title.c_str(),win_config.icon.c_str(), monitor, nullptr);
     if(!window) {
         std::cerr << "Failed to Create Window" << std::endl;
         glfwTerminate();
