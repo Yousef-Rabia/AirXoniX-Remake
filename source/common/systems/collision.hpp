@@ -45,15 +45,9 @@ namespace our
                 move = entity->getComponent<KeyboardMovementComponent>();
                 if(move) break;
             }
-
-            // we also get the camera entity since we need to reset it on player death
-            CameraComponent* camera = nullptr;
-            for(auto cameraEntity : world->getEntities()){
-                camera = cameraEntity->getComponent<CameraComponent>();
-                if(camera) break;
-            }
-            Entity* cameraEntity = camera->getOwner();
-            glm::vec3& cameraPosition = cameraEntity->localTransform.position;
+            if(!move) return;
+            Entity* player = move->getOwner();
+            glm::vec3& playerPosition = player->localTransform.position;
 
             // For each entity in the world
             for(auto entity : world->getEntities()){
@@ -63,8 +57,7 @@ namespace our
                 if(movement) {
                     glm::vec3& entityPosition = entity->localTransform.position;
                     auto* enemy = entity->getComponent<EnemyComponent>();
-                    Entity* player = nullptr;
-                    if(move) player = move->getOwner();
+
 
                     // here we do enemy collision logic
                     if(enemy) {
@@ -220,10 +213,7 @@ namespace our
 
                         // Enemy collision logic with the player
                         if(player) {
-                            glm::vec3 playerPosition = player->localTransform.position;
                             if (pow(playerPosition.x - entityPosition.x, 2) + pow(playerPosition.z - entityPosition.z, 2) <= ENEMY_PLAYER_HITBOX) {
-                                player->localTransform.position = INITIAL_PLAYER_POSITION;
-                                cameraPosition = INITIAL_CAMERA_POSITION;
                                 areaCoverageSystem->dieReset(world);
                                 if(enemy->enemyType == "Mine")
                                     entityPosition = INITIAL_MINE_POSITION;
@@ -236,8 +226,6 @@ namespace our
                                 glm::vec3 dotPosition = dot->localTransform.position;
                                 if (dotPosition.y < 0) continue;
                                 if(pow(dotPosition.x - entityPosition.x, 2) + pow(dotPosition.z - entityPosition.z, 2) <= ENEMY_LINE_HITBOX){
-                                    player->localTransform.position = INITIAL_PLAYER_POSITION;
-                                    cameraPosition = INITIAL_CAMERA_POSITION;
                                     areaCoverageSystem->dieReset(world);
                                 }
                             }

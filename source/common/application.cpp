@@ -10,8 +10,6 @@
 #include <tuple>
 #include <filesystem>
 
-#include <flags/flags.h>
-
 // Include the Dear ImGui implementation headers
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD2
 #include <imgui_impl/imgui_impl_glfw.h>

@@ -23,6 +23,8 @@ namespace our {
     // The collision system is responsible for the effect of any two entities colliding.
     class AreaCoverageSystem {
         Application* app; // The application in which the state runs
+        Entity* player;
+        Entity* cameraEntity;
 
     public:
         /*
@@ -108,20 +110,22 @@ namespace our {
         void update(World *world) {
             // get the player (later used for collision calculations)
             KeyboardMovementComponent *move = nullptr;
-
-            // For each entity in the world
-            for (auto entity: world->getEntities()) {
+            for(auto entity : world->getEntities()){
                 move = entity->getComponent<KeyboardMovementComponent>();
-                if (move) break;
+                if(move) break;
             }
-
-            //if No Movement, there is Nothing to do here!
-            if (!move) return;
-
-            //get the player entity
-            Entity *player = nullptr;
+            if(!move) return;
             player = move->getOwner();
-            glm::vec3 playerPosition = player->localTransform.position;
+            glm::vec3& playerPosition = player->localTransform.position;
+
+            // we also get the camera entity since we need to reset it on player death
+            CameraComponent* camera = nullptr;
+            for(auto cameraEntity : world->getEntities()){
+                camera = cameraEntity->getComponent<CameraComponent>();
+                if(camera) break;
+            }
+            if(!camera) return;
+            cameraEntity = camera->getOwner();
 
             // if the cubes list is not filled, Fill it Once And for All!
             if (!cubesFilled) {
@@ -266,6 +270,9 @@ namespace our {
             point1 = RESET_STARTPOS;
             point2 = RESET_STARTPOS;
             app->lives -= 1;
+
+            player->localTransform.position = INITIAL_PLAYER_POSITION;
+            cameraEntity->localTransform.position = INITIAL_CAMERA_POSITION;
 
             app->soundPlayer.playSound("player_deathYell");
 
