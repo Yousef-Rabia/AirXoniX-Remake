@@ -143,8 +143,8 @@
           "sampler": "default"
         },
         "player":{
-          "type": "tinted",
-          "shader": "tinted",
+          "type": "lighted",
+          "shader": "lighting",
           "pipelineState": {
             "faceCulling":{
               "enabled": false
@@ -154,11 +154,16 @@
             }
           },
           "tint": [0.0, 0.8, 1, 1],
-          "sampler": "default"
+          "sampler": "default",
+          "albedo": "tinted",
+          "specular": "black",
+          "roughness": "roughness",
+          "emissive": "black",
+          "ambient_occlusion": "tinted"
         },
         "ball":{
-          "type": "textured",
-          "shader": "textured",
+          "type": "lighted",
+          "shader": "lighting",
           "pipelineState": {
             "faceCulling":{
               "enabled": false
@@ -169,11 +174,16 @@
           },
           "tint": [1, 1, 1, 1],
           "texture": "ball",
-          "sampler": "default"
+          "sampler": "default",
+          "albedo": "ball",
+          "specular": "black",
+          "roughness": "roughness",
+          "emissive": "black",
+          "ambient_occlusion": "ball"
         },
         "mine":{
-          "type": "textured",
-          "shader": "textured",
+          "type": "lighted",
+          "shader": "lighting",
           "pipelineState": {
             "faceCulling":{
               "enabled": false
@@ -184,11 +194,16 @@
           },
           "tint": [1, 0.25, 0.25, 1],
           "texture": "mine",
-          "sampler": "default"
+          "sampler": "default",
+          "albedo": "mine",
+          "specular": "black",
+          "roughness": "roughness",
+          "emissive": "black",
+          "ambient_occlusion": "mine"
         },
         "wood":{
-          "type": "lighted",
-          "shader": "lighting",
+          "type": "textured",
+          "shader": "textured",
           "pipelineState": {
             "faceCulling":{
               "enabled": false
@@ -15636,8 +15651,8 @@
           0.008
         ],
         "position": [
-          -25,
           0,
+          1,
           0
         ],
         "components": [
@@ -15648,7 +15663,7 @@
           },
           {
             "type": "Lighting",
-            "kind": 0,
+            "kind": 1,
             "direction": [
               100,
               0,

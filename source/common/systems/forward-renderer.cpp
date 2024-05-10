@@ -210,7 +210,9 @@ namespace our {
 //            command.material->shader->set("transform", VP * command.localToWorld);
 //            command.mesh->draw();
 
-            if (auto light_material = dynamic_cast<LightingMaterial *>(command.material); light_material)
+
+
+            if (auto light_material = dynamic_cast<LightingMaterial *>(command.material); light_material && command.center.y >= 0)
             {
                 light_material->shader->set("VP", VP);
 
@@ -288,7 +290,7 @@ namespace our {
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         for(auto& command : transparentCommands){
             command.material->setup();
-            if (auto light_material = dynamic_cast<LightingMaterial *>(command.material); light_material)
+            if (auto light_material = dynamic_cast<LightingMaterial *>(command.material); light_material&& command.center.y >= 0)
             {
                 light_material->shader->set("VP", VP);
 
