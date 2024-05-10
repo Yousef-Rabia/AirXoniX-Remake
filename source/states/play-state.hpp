@@ -40,6 +40,7 @@ class Playstate: public our::State {
         cameraController.enter(getApp());
         keyboardMovementSystem.enter(getApp());
         areaCoverageSystem.enter(getApp());
+        collisionSystem.enter(getApp());
         // areaCoverageSystem.dieReset();
         // Then we initialize the renderer
         auto size = getApp()->getFrameBufferSize();
@@ -58,15 +59,13 @@ class Playstate: public our::State {
             cameraController.update(&world, (float)deltaTime);
             areaCoverageSystem.update(&world);
             keyboardMovementSystem.update(&world, (float)deltaTime, &areaCoverageSystem);
+            movementSystem.update(&world, (float)deltaTime);
+            collisionSystem.update(&world, &areaCoverageSystem);
             world.deleteMarkedEntities();
 
             // Some gameplay logic
             getApp()->coveredArea = (int)(areaCoverageSystem.calcCoveredPercentage() / FINISH_PERCENTAGE * 100);
         }
-
-        // Here, we just run a bunch of other systems, these aren't paused on game stop
-        movementSystem.update(&world, (float)deltaTime);
-        collisionSystem.update(&world, &areaCoverageSystem);
 
         // And finally we use the renderer system to draw the scene
         renderer.render(&world);
@@ -78,6 +77,9 @@ class Playstate: public our::State {
             // If the escape  key is pressed in this frame, go to the play state
             getApp()->changeState("menu");
             getApp()->paused = false;
+            // play the menu sound
+            getApp()->soundPlayer.stopAllSounds();
+            getApp()->soundPlayer.loopSound("menu");
         }
     }
 

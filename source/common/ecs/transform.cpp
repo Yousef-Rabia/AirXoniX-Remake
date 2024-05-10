@@ -8,7 +8,7 @@ namespace our {
     // This function computes and returns a matrix that represents this transform
     // Remember that the order of transformations is: Scaling, Rotation then Translation
     // HINT: to convert euler angles to a rotation matrix, you can use glm::yawPitchRoll
-    glm::mat4 Transform::toMat4() const {
+    glm::mat4 Transform::toMat4(glm::mat4 selfRotation) const {
         //TODO: (Req 3) Write this function
 
         // Compute translation matrix
@@ -21,7 +21,11 @@ namespace our {
         glm::mat4 scalingMatrix = glm::scale(glm::mat4(1.0f), scale);
 
         // Construct the transformation matrix by combining scaling, rotation, and translation
-        glm::mat4 transformMatrix = translationMatrix * rotationMatrix * scalingMatrix;
+        glm::mat4 transformMatrix;
+        if(selfRotation == glm::mat4(1.0))
+            transformMatrix = translationMatrix * rotationMatrix * scalingMatrix;
+        else
+            transformMatrix = translationMatrix * selfRotation * scalingMatrix;
 
         return transformMatrix;
     }

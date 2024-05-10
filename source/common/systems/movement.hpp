@@ -11,7 +11,7 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
-#include <chrono>
+#include <glm/gtx/euler_angles.hpp>
 
 namespace our
 {
@@ -31,14 +31,25 @@ namespace our
 
                 // If the movement component exists
                 if(movement) {
+                    // Enemy rotation around itself
                     if(entity->getComponent<EnemyComponent>()){
-                        auto linear = movement->linearVelocity;
-                        movement->angularVelocity = glm::vec3{0, linear.x * 2, 0};
-                    }
+                        auto forward_direction = glm::normalize(movement->linearVelocity);
+                        glm::vec3 up_direction = {0, 1, 0};
 
-                    // Change the position and rotation based on the linear & angular velocity and delta time.
+                        // Compute the right direction by taking the cross product of forward and up directions
+                        glm::vec3 right_direction = glm::normalize(glm::cross(forward_direction, up_direction));
+                        double speed = sqrt(pow(movement->linearVelocity.x, 2) + pow(movement->linearVelocity.z, 2));
+
+                        glm::mat4 rotationMatrix = glm::yawPitchRoll(0.0, -(double)(entity->localTransform.rotation.x + deltaTime * speed), 0.0);
+                        entity->localTransform.rotation.x = (entity->localTransform.rotation.x - deltaTime * 10);
+                        glm::mat4 new_basis = glm::mat4(glm::mat3(right_direction, up_direction, forward_direction));
+                        entity->selfRotation = glm::transpose(new_basis) * rotationMatrix * new_basis;
+                    }
+                    else
+                        entity->localTransform.rotation += deltaTime * movement->angularVelocity;
+
+                    // Change the position based on the linear velocity and delta time.
                     entity->localTransform.position += deltaTime * movement->linearVelocity;
-                    entity->localTransform.rotation += deltaTime * movement->angularVelocity;
                 }
             }
         }
