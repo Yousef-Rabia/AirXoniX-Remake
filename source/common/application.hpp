@@ -35,6 +35,7 @@ namespace our {
     // This struct handles window attributes: (title, size, isFullscreen).
     struct WindowConfiguration {
         std::string title;
+        std::string icon;
         glm::i16vec2 size;
         bool isFullscreen;
     };

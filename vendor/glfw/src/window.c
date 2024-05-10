@@ -29,6 +29,7 @@
 //========================================================================
 
 #include "internal.h"
+#include "../../utils/stb/stb_image.h"
 
 #include <assert.h>
 #include <string.h>
@@ -151,9 +152,11 @@ void _glfwInputWindowMonitor(_GLFWwindow* window, _GLFWmonitor* monitor)
 
 GLFWAPI GLFWwindow* glfwCreateWindow(int width, int height,
                                      const char* title,
+                                     const char* icon,
                                      GLFWmonitor* monitor,
                                      GLFWwindow* share)
 {
+
     _GLFWfbconfig fbconfig;
     _GLFWctxconfig ctxconfig;
     _GLFWwndconfig wndconfig;
@@ -173,6 +176,8 @@ GLFWAPI GLFWwindow* glfwCreateWindow(int width, int height,
 
         return NULL;
     }
+
+
 
     fbconfig  = _glfw.hints.framebuffer;
     ctxconfig = _glfw.hints.context;
@@ -241,6 +246,16 @@ GLFWAPI GLFWwindow* glfwCreateWindow(int width, int height,
             if (wndconfig.focused)
                 _glfwPlatformFocusWindow(window);
         }
+    }
+
+    if(icon != NULL)
+    {
+
+        GLFWimage images[1];
+        images[0].pixels = stbi_load(icon, &images[0].width, &images[0].height, 0, 4);
+        glfwSetWindowIcon((GLFWwindow *) window, 1, images);
+        stbi_image_free(images[0].pixels);
+
     }
 
     return (GLFWwindow*) window;
