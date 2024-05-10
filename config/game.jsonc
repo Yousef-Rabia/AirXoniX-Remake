@@ -12,7 +12,7 @@
   "scene": {
     "renderer":{
       "sky": "assets/textures/sky.jpg",
-      "postprocess": "D:/Study/3rd_Material/GFX_p/Game-Engine/assets/shaders/postprocess/film-grain.frag"
+      "postprocess": "./assets/shaders/postprocess/film-grain.frag"
     },
     "assets":{
       "shaders":{
