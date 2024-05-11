@@ -25,6 +25,8 @@ namespace our
 
         // This should be called every frame to update all entities
         void update(World *world, float deltaTime, AreaCoverageSystem *areaCoverageSystem) {
+            // if the time between 2 calls is too high, it means the game was paused
+            if(deltaTime > 0.1) return;
             // We search for an entity containing both a KeyboardMovementComponent
             // As soon as we find one, we break
             KeyboardMovementComponent *move = nullptr;

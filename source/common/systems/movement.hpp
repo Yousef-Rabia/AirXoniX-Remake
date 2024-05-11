@@ -23,6 +23,7 @@ namespace our
     public:
         // This should be called every frame to update all entities containing a MovementComponent.
         void update(World* world, float deltaTime) {
+            // if the time between 2 calls is too high, it means the game was paused
             if(deltaTime > 0.1) return;
             // For each entity in the world
             for(auto entity : world->getEntities()){
