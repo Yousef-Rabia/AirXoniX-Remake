@@ -64,8 +64,11 @@ namespace our
                         // Enemy collision with other enemies
                         for (auto otherEnemyEntity: world->getEntities()) {
                             if (otherEnemyEntity == entity) continue;
-                            auto *otherEnemyComponent = otherEnemyEntity->getComponent<EnemyComponent>();
+                            auto otherEnemyComponent = otherEnemyEntity->getComponent<EnemyComponent>();
+
                             if (otherEnemyComponent) {
+                                if (otherEnemyComponent->enemyType != enemy->enemyType) continue;
+
                                 glm::vec3 otherEnemyPosition = otherEnemyEntity->localTransform.position;
                                 if (pow(otherEnemyPosition.x - entityPosition.x, 2) +
                                     pow(otherEnemyPosition.z - entityPosition.z, 2) <= ENEMY_ENEMY_HITBOX) {
@@ -114,9 +117,6 @@ namespace our
                                         cubeCollision = true;
                                         leastDistance = distance;
                                         nearestCube[entity] = cube;
-
-                                        // play the sound
-                                        app->soundPlayer.playSound("ball_reflect");
                                     }
                                 }
                             }
@@ -139,7 +139,13 @@ namespace our
                                 else if(abs(cubePosition.x - entityPosition.x) < abs(cubePosition.z - entityPosition.z))
                                     movement->linearVelocity.z *= -1;
                                 else
-                                    movement->linearVelocity *= -1;
+                                {
+                                    movement->linearVelocity.x *= -1;
+                                    movement->linearVelocity.z *= -1;
+                                }
+
+                                // play the sound
+                                app->soundPlayer.playSound("ball_reflect");
                             }
                         }
 
@@ -207,6 +213,7 @@ namespace our
                                 else
                                     movement->linearVelocity *= -1;
 
+                                // play the sound
                                 app->soundPlayer.playSound("mine_reflect");
                             }
                         }
