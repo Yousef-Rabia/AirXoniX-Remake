@@ -207,10 +207,6 @@ namespace our {
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         for(auto& command : opaqueCommands){
             command.material->setup();
-//            command.material->shader->set("transform", VP * command.localToWorld);
-//            command.mesh->draw();
-
-
 
             if (auto light_material = dynamic_cast<LightingMaterial *>(command.material); light_material && command.center.y >= 0)
             {
