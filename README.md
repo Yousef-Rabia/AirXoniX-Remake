@@ -64,11 +64,14 @@ make
 # Screenshots
 
 - **Menu**
-   <img width=70% src="assets/1.jpg" alt="Menu"></a>
+  
+   <img width=100% src="assets/1.jpg" alt="Menu"></a>
 - **Game Initial Scene**
-   <img width=70% src="assets/2.jpg" alt="Game Initial Scene"></a>
+  
+   <img width=100% src="assets/2.jpg" alt="Game Initial Scene"></a>
 - **Game Mid Scene**
-   <img width=70% src="assets/3.jpg" alt="Game Mid Scene"></a>
+  
+   <img width=100% src="assets/3.jpg" alt="Game Mid Scene"></a>
 
 # Contributing
 
